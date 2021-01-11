@@ -1,0 +1,64 @@
+* {
+    font-family: 'Karla', sans-serif;
+}
+
+nav {
+    background-color: blue;
+}
+nav ul li {
+    display: inline-flex; 
+    
+    
+    
+}
+
+#avg {
+    margin-right: 300px;
+    
+}
+
+.navbar {
+   color: white;
+   font-size: xx-large;
+   text-decoration: none;
+   width: 300px;  
+}
+
+nav ul {
+    margin-bottom: 0;
+}
+h1 {     
+    font-size: 800%;
+    text-align: center;
+    margin: 0;
+    
+}
+div p {
+    margin: 50px 0 0 300px;
+    width: 700px;
+    font-size: 150%;
+    padding-bottom: 100px;
+
+}
+
+div {
+    margin: 0;
+    padding: 0;
+    background-image: url("Captain2.jpg");
+    height: auto;
+    color: cornflowerblue;    
+}
+
+footer {
+        background-color: cornflowerblue;
+        color: white;
+}
+footer p {
+    text-align: center;
+    margin: 0;
+    font-size: 150%;
+}
+
+footer ul {
+    display: inline-flexbox;
+}
