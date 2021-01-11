@@ -1,0 +1,150 @@
+* {
+    font-family: 'Karla', sans-serif;
+}
+
+nav {
+    background-color: blue;
+}
+nav ul li {
+    display: inline-flex; 
+}
+
+#avg {
+    margin-right: 150px;
+    
+}
+
+.navbar {
+   color: white;
+   font-size: xx-large;
+   text-decoration: none;
+   width: 300px;  
+}
+
+nav ul {
+    margin-bottom: 0;
+}
+h1 {     
+    font-size: 800%;
+    text-align: center;
+    margin: 0; 
+}
+h1:hover {
+    color: coral;
+}
+
+div img {
+    width: 200px; 
+    float: left;
+}
+div img:hover{
+    width: 250px ;
+}
+div p {
+    margin: 0 0 0 300px;
+    width: 700px;
+    font-size: 150%;
+    padding-bottom: 100px;
+
+}
+
+div {
+    margin: 0;
+    padding: 0;
+    background-image: url("Captain2.jpg");
+    height: auto;
+    color: cornflowerblue;    
+}
+
+footer {
+        background-color: cornflowerblue;
+        color: white;
+}
+footer p {
+    text-align: center;
+    margin: 0;
+    font-size: 150%;
+}
+
+footer ul {
+    display: inline-flexbox;
+}
+
+@media all and (min-width: 1024px) and (max-width: 1280px) {
+    div {
+        width: 100%;
+    }
+ }
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+    h1 {
+        font-size: 600%;
+    }
+    div {
+        background-image: none;
+        background-color: rgb(224, 221, 221);
+        
+    }
+    div p {
+        width: auto;
+        padding-bottom: 50px;
+        margin-left: 210px;
+    
+    }
+    .navbar {
+        margin-right: 50px;  
+        width: auto;
+     }
+     #avg {
+        margin-right: 50px;}
+ }
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+    h1 {
+        font-size: 400%;
+    }
+    div {
+        background-image: none;
+        background-color: rgb(224, 221, 221);
+        
+    }
+    div p {
+        width: auto;
+        padding-bottom: 0;
+        font-size: 140%;
+        margin-left: 210px;
+    }
+    .navbar {
+        margin-right: 20px; 
+        width: auto;
+     }
+     #avg {
+        margin-right: 50px;
+    }
+    footer p {
+        color: black
+    }
+ }
+
+@media all and (max-width: 480px) { 
+    h1 {
+        font-size: 300%;
+    }
+    div p {
+        width: auto;
+        padding-bottom: 0;
+        font-size: 100%;
+        margin-left: 210px;
+    }
+    div {
+        background-image: none;
+        background-color:  rgb(224, 221, 221);
+        
+    }
+    .navbar {
+        width: auto;
+    #avg {
+        margin-right: 50px;
+    }
+   
+}
