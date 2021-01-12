@@ -1,0 +1,33 @@
+div {
+    display: flex;
+    border: 2px solid;
+    border-color: red;
+    flex-direction: column;
+    width: 80%;
+    max-width: 800px;
+    justify-content: center;
+    text-align: center;
+    font-size: 200%;
+    font-weight: bold;
+    
+}
+
+.block {
+    background-color: skyblue;
+    text-align: center;
+    color: white;
+    height: 50px;
+    margin: 5px;
+    padding-top: 5px;
+    
+    
+}
+
+#b2 {
+    height: 100px;
+    width: 50%;
+    align-self: center;
+    padding-top: 9%;
+    vertical-align: middle;
+    
+}

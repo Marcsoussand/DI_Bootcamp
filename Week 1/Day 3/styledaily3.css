@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    }
+
+.box {
+    border: 2px solid black;
+    background-color: yellow;
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    
+
+}
+#column_1 {
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+}
+
+#column_2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 30%;
+    align-items: center;
+    
+    
+
+}
+
+#column_3 {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+}
