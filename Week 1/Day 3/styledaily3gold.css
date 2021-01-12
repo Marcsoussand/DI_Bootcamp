@@ -1,0 +1,28 @@
+.column1 {
+    display: grid;
+}
+
+.column {
+    display: flex;
+    
+}
+
+.box {
+    border: 1px solid white;
+    width: 10px;
+    height: 10px;
+    
+}
+.coral {
+    background-color: #FF7103;
+}
+
+.sand {
+    background-color: #FFB26D;
+}
+
+.brown {
+    background-color: #A84A01;
+}
+
+
