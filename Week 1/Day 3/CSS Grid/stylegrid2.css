@@ -1,0 +1,51 @@
+
+
+.box {
+    color: white;
+    text-align: center;
+}
+header {
+    background-color: #55D5EB;
+    grid-area: hd;
+}
+.hero {
+    background-color: #D7C9E3;
+    grid-area: he;
+}
+.sidebar {
+    background-color: #9FC363;
+    grid-area: s;
+}
+.main {
+    background-color: #F6C632;
+    grid-area: m;
+}
+.extra {
+    background-color: #898989;
+    grid-area: ex;
+}
+.images {
+    background-color: #2CB673;
+    grid-area: i;
+}
+.posts {
+    background-color: #F3CCDE;
+    
+}
+footer {
+    background-color: #FFA600;
+    grid-area: f;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 15px 20px 20px 30px 15px 8px;
+    grid-template-areas:
+    "hd hd hd"
+    "he m m"
+    "s m m"
+    "s ex ex"
+    "i i p"
+    "f f f";
+}
