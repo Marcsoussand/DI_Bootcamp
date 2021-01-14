@@ -1,0 +1,24 @@
+.grey {
+    background-color: grey;
+    width: 100%;
+    height: 180px;
+    position: static;
+}
+
+.blue {
+    background-color: cornflowerblue;
+    width: 150px;
+    height: 150px;
+    position:absolute;
+
+}
+
+.orange {
+    background-color: orange;
+    width: 150px;
+    height: 150px;
+    position: relative;
+    left:5px;
+    top: 5px;
+
+}

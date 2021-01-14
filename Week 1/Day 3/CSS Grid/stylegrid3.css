@@ -6,48 +6,58 @@
     border: 5px solid white;
 
 }
+
+.magenta {
+    background-color: #B7336A;
+}
+
+.purple {
+    background-color: #726DA8;
+}
+.cornflower {
+    background-color: #7C8CC4;
+}
+.water {
+    background-color: #A0D2DB;
+}
+.mauve {
+    background-color: #C490D1;
+}
+
 header {
-    background-color: #55D5EB;
     grid-area: header;
 }
 .hero {
-    background-color: #D7C9E3;
     grid-area: hero;
 }
 .sidebar {
-    background-color: #9FC363;
     grid-area: sidebar;
 }
 .main {
-    background-color: #F6C632;
     grid-area: main;
 }
 .extra {
-    background-color: #898989;
     grid-area: extra;
 }
 .images {
-    background-color: #2CB673;
     grid-area: images;
 }
 .posts {
-    background-color: #F3CCDE;
     grid-area: post;
 }
 footer {
-    background-color: #FFA600;
     grid-area: footer;
 }
 
 .container {
+    max-width: 800px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 70px 200px 100px 100px 100px 100px;
+    grid-template-rows: 90px 90px 90px 90px 90px ;
     grid-template-areas:
     "header header header"
-    "hero main main"
-    "sidebar main main"
-    "sidebar extra extra"
+    "hero sidebar main"
+    "hero extra extra"
     "images images post"
     "footer footer footer";
 }
