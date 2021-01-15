@@ -1,69 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css"
-    integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-    crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/31dd8a6839.js" crossorigin="anonymous"></script>
- <link rel="stylesheet" href="main.css">
     <title>Marc Portfolio</title>
 </head>
+
 <body>
 
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar">
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"><h4>Marc Portfolio</h4></a>
+            <div class="navbar-header navbar-brand">
+                <h1 style="color: white; margin-left: 20px;">Marc Portfolio</h1>
             </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Home</a></li>
-                <li class="active"><a href="#">About <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Contact </a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                        aria-expanded="false">Projects <span class="badge">3</span><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
+            <ul class="nav navbar-brand navbar-right">
+                <li class="nav-item"><a class="item" href="#">About Me</a></li>
+                <li class="nav-item"><a class="item" href="#">Portfolio</a></li>
+                <li class="nav-item"><a class="item" href="#">Blog</a></li>
+                <div class="dropdown show">
+                    <button class="btn btn-primary dropdown-toggle item2" type="button" data-toggle="dropdown">Projects
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
             </ul>
-            
-           
-        </div><!-- /.container-fluid -->
+
+
+        </div>
     </nav>
     <header>
-        <img class="background" src="images/headerback.jpg" alt="header">
-        <h1>Hello, Welcome to my official site</h1>
-        <p></p> Marc
-    </header>
-    
-</body>
-</html>
+        <img class="background" src="images/headerback.jpg" alt="Headerback">
+        <div id="centre">
+            <h1>Hello, Welcome to my website</h1>
+            <h4 id="centre2">Junior Full-Stack Developer Web, trained by the bests at Developers Institute
 
+            </h4>
+            <button type="button" class="btn btn-primary more">See More</button>
+        </div>
+
+    </header>
+
+    <div class="container">
+        <div class="about section">
+            <div class="title">About me</div>
+            <div class="order"><img id="Photo" src="images/Marc.jpg" alt="Marc">
+                <p class="under"> Former Computer Engineer, with a Master Degree in Finance, I am currently following a
+                    JavaScript
+                    Full-Stack Developer bootcamp at Developers Institute in Tel Aviv. <br> <br> Highly motivated to
+                    develop my skills in order to integrate the world of Israeli High-Tech</p>
+
+            </div>
+
+        </div>
+        <div class="portfolio section">
+            <div class="title">Portfolio</div>
+        </div>
+        <div class="blog section">
+            <div class="title">Blog</div>
+            <div class="order">
+                <div class="card" style="width: 18rem; display:flex;">
+                    <img class="card-img-top" src="images/bible.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">La Bible du fantasy foot</h5>
+                        <p class="card-text">Wordpress article on fantasy football in France</p>
+                        <br>
+                        <a href="https://www.fantasy-coach.fr/bible-fantasy-foot/" class="btn btn-primary cardbtn">Read</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="images/lille.jfif" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">World Bridge junior champion</h5>
+                        <p class="card-text">World Bridge Championship 1998</p>
+                        <br><br>
+                        <a href="http://db.worldbridge.org/Repository/tourn/Lille.98/Bulletin/80830sun.htm" class="btn btn-primary cardbtn">Read</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="images/tanach.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">חידון התנ'ח העולמי</h5>
+                        <p class="card-text">Participant in the World Biblic Contest for young people</p>
+                        <br><br>
+                        <a href="#" class="btn btn-primary cardbtn">Read</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="section">
+            <div class="title">Contact</div>
+        </footer>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

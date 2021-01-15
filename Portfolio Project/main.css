@@ -1,4 +1,6 @@
- html, body, div, span, object, iframe,
+/* Reset till line 96 */
+
+html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 abbr, address, cite, code,
 del, dfn, em, img, ins, kbd, q, samp,
@@ -104,11 +106,130 @@ nav {
     
 }
 
-header img {
 
-    opacity: 0.3;
-    height: 100%;
-    width: 100%;
-    margin: 0;
+
+.navbar-right {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-item {
+    margin: 15px;
+    
+}
+
+.item {
+    text-decoration: none;
+    color: white;
+}
+
+.item:hover {
+    color: cyan;
+}
+.item2 {
+    margin: 5px;
+    font-family: "Raleway";
+    font-size: 20px;
+}
+header {
     background-attachment: fixed;
+    background-position: center;
+    margin:0;
+}
+.background {
+    position: absolute;
+    background-size: 100%;
+    height: 500px;
+    width: 100%;
+    opacity: 0.2;
+}
+
+#centre {
+    
+    color: darkblue;
+    font-size: 70px;
+    opacity: 1;
+    padding: 200px 0 0 100px;
+}
+
+#centre2 {
+    font-size: 40px;
+    padding: 0 0 0 150px
+}
+
+.more {
+    margin-left: 300px;
+    font-size: 25px;
+    
+}
+
+.container {
+    margin-top: 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 400px 400px 400px 300px;
+    grid-template-areas: 
+    "a a a"
+    "p p p"
+    "b b b";
+    
+
+}
+
+.section {
+    
+    color: darkblue;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    
+}
+.about {
+    grid-area: a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+   
+}
+
+.portfolio {
+    grid-area: p;
+}
+.blog {
+    grid-area: b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+#photo {
+    max-width: 100%;
+    
+}
+
+.order {
+    display: flex;
+    justify-content: space-around;
+}
+
+.under {
+    width: 50%;
+    border-left: 5px solid #EEEEEE;
+    padding-left: 12px;
+    padding-top: 30px;
+}
+
+footer {
+padding-top: 200px;
+
+}
+
+.cardbtn {
+    margin-left: 40%;
 }
