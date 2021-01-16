@@ -95,10 +95,7 @@ input, select {
     vertical-align:middle;
 } 
 
-html,h1,h2,h3,h4,h5,h6,a{
-    font-family: "Raleway";
-    
-}
+
 
 nav {
     background-color: #2E4372;
@@ -159,19 +156,22 @@ header {
 
 .more {
     margin-left: 300px;
-    font-size: 25px;
-    
 }
 
+
 .container {
-    margin-top: 100px;
+    
+    padding-top: 100px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 400px 400px 400px 300px;
+    grid-template-rows: 400px 700px 500px 300px;
     grid-template-areas: 
     "a a a"
     "p p p"
-    "b b b";
+    "b b b"
+    "f f f";
+    
+
     
 
 }
@@ -182,8 +182,11 @@ header {
     font-weight: bold;
     display: flex;
     justify-content: center;
+    width: auto;
     
 }
+
+
 .about {
     grid-area: a;
     display: flex;
@@ -194,7 +197,14 @@ header {
 }
 
 .portfolio {
-    grid-area: p;
+    grid-area: p; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ 
+}
+.carousel-item {
+    max-height: 520px;
 }
 .blog {
     grid-area: b;
@@ -208,28 +218,50 @@ header {
     margin-bottom: 30px;
 }
 
-#photo {
-    max-width: 100%;
+#picture {
+    -moz-border-radius:10%;
+-webkit-border-radius:10%;
+border-radius:10%;
+
     
 }
 
 .order {
     display: flex;
     justify-content: space-around;
+    width: 100%;
 }
 
 .under {
     width: 50%;
-    border-left: 5px solid #EEEEEE;
+    border-left: 10px solid #EEEEEE;
     padding-left: 12px;
     padding-top: 30px;
 }
 
 footer {
+    grid-area: f;
 padding-top: 200px;
+display: flex;
+    flex-direction: column;
+    align-items: center;
 
 }
 
 .cardbtn {
     margin-left: 40%;
+}
+
+.logos span {
+    margin: 20px
+}
+
+.formboot {
+    width: 30%;
+}
+
+
+html,h1,h2,h3,h4,h5,h6,a{
+    font-family: "Raleway";
+    
 }
