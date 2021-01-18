@@ -70,6 +70,11 @@ alert(result);
 
 // Find Nemo
 
-let Find = prompt("Please give me a string");
-let place = Find.search("Nemo");
-console.log(Find + "   I found Nemo at" + place);
+let finder = prompt("Please give me a string");
+let spl = finder.split(" ", finder.length);
+console.log(spl);
+function checkNemo(nem) {
+    return nem == "Nemo";
+  }
+let res = spl.findIndex(checkNemo);
+console.log(finder + "   I found Nemo at " + res);
