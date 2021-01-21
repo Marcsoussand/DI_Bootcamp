@@ -16,6 +16,7 @@ for (i=0;i<array.length-1;i++) {
 // console.log(lengthMax);
 let stars = "";
 let print = " ";
+let till=0;
 
 for (i=0;i<lengthMax+4;i++) {
     stars +="*"
@@ -23,7 +24,7 @@ for (i=0;i<lengthMax+4;i++) {
 console.log(stars);
 for (i=0;i<array.length;i++){
     lengthVar=array[i].length;
-    var till = lengthMax-lengthVar;
+    till = lengthMax-lengthVar;
     console.log("* "+array[i]+print.repeat(till)+" *");
 }
 console.log(stars);
