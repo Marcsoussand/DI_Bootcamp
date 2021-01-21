@@ -1,5 +1,5 @@
 let entry = prompt("Please enter multiple words separated by commas :");
-let array = entry.split(", ");
+let array = entry.split(",");
 // console.log(array);
 let lengthMax=0;
 let lengthVar=0;
