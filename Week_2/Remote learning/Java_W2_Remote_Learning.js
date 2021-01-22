@@ -5,16 +5,14 @@ var num = 10;
 console.log(num);
 
 // Exercise 2
-// Change the code so the var i will be undefined outside of the for loop
-// Think I am missing something, seems strange to do it this way
+// let instead of var
 
 function numbers() {
     
-    
-    for (var i = 0; i < 5; i += 1) {
+    for (let i = 0; i < 5; i += 1) {
       console.log(i);
     }
-    i=undefined;
+    // i=undefined;
       console.log(i);
   }
   numbers();
