@@ -72,26 +72,33 @@
 const arrayBig = [-1, 0, 3, 100, 99, 2, 99];// should return 100 
 const arrayBig2 = ['a', 3, 4, 2]; // should return 4 
 const arrayBig3 = []; // should return 0
-console.log(arrayBig[1])
-console.log(typeof arrayBig2[0] === "number")
+// console.log(arrayBig[1])
+// console.log(typeof arrayBig2[0] === "number")
 let check = [];
+let result4 = 0;
+
+
 
 
 function biggestNumber(arr) {
-
-    for (i = 0; i < arr.length; i++) {
-        if (typeof arr[i] == "number") {
-            check.push(arr[i]);
-            console.log(check);
-        } else {
-            check.push(0);
-        }
+    if (arr.length == 0) {
+        result4 = 0;
     }
+    else {
 
-    let result4 = Math.max(...check);
+        for (i = 0; i < arr.length; i++) {
+            if (typeof arr[i] == "number") {
+                check.push(arr[i]);
+                // console.log(check);
+            } else {
+                check.push(0);
+            }
+        }
+    
+    result4 = Math.max(...check);}
     return result4;
 }
 
-// console.log(biggestNumber(arrayBig));
-// console.log(biggestNumber(arrayBig2));
-console.log(biggestNumber(arrayBig3));
+console.log("The Biggest number of the array is : " +biggestNumber(arrayBig));
+//  console.log(biggestNumber(arrayBig2));
+// console.log(biggestNumber(arrayBig3));
