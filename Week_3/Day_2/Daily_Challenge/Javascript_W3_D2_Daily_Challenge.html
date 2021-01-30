@@ -22,14 +22,17 @@
     </p>
 
     <script>
+      let noun=document.getElementById("noun");
+          let adjective=document.getElementById("adjective");
+      let person=document.getElementById("person");
         let libButton = document.getElementById('lib-button');
         let libIt = function() {
             let storyDiv = document.getElementById("story");
-            storyDiv.innerHTML = "??Your story here";
+            storyDiv.innerHTML = "Once upon a time, in the marvellous world of Narnia, the delightful "+noun.value+" felt in love with the "+adjective.value+" "+person.value+". After three years, they get married and had a lot of children.";
         };
         libButton.addEventListener('click', libIt);
     </script>
-    <script src="Java_W3_D2_Daily_Challenge.js"></script>
+    
 
  </body>
 </html>
