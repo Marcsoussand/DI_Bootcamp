@@ -21,7 +21,7 @@ console.log(sum(5,3));
 // console.log(curriedSum(30)(1));
 
 //Initial guess 31
-// return 31 sum is unused, curriedSum with (30) and (1) used the first input to sum with the second.
+// return 31, sum is unused, curriedSum with (30) and (1) used the first input to sum with the second.
 
 // Exercise 4
 
