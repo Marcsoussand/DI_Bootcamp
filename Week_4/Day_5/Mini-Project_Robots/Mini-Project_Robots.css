@@ -1,0 +1,60 @@
+* {
+    font-family: 'Teko', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* body {
+    margin: 0;
+} */
+
+#navigation {
+   
+    border: 1px black solid;
+    background-color: lightgreen;
+    /* display: inline; */
+    padding: 10px;
+    height: auto;
+    display: block;
+
+    
+}
+
+#robo {
+    font-size: 150%;
+}
+ #inputSearch {
+     margin-left: 50px;
+     padding-left: 10px;
+    font-size: 150%;
+}
+
+
+.cards {
+    border:solid 1px black;
+    width: 325px;
+    background-color: #55B3BE;
+    border-radius: 10%;
+    padding-top: 15px;
+    margin: 5px;
+}
+
+.image {
+    border-radius: 50%;
+    background-color: #303952;
+}
+
+
+#container {
+    padding: 70px 170px;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    background-color: blueviolet;
+}
+
+p {
+    font-weight: bold;
+    font-size: 150%;
+}
