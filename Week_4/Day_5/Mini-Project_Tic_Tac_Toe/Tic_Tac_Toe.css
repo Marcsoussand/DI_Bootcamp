@@ -1,0 +1,51 @@
+* {
+    margin:0;
+    padding:0;
+}
+body {
+    background-color: #1A2B4C;
+}
+
+#container {
+    margin: auto;
+    display: grid;
+    grid-template-rows: 180px 180px 180px;
+    grid-template-columns: 180px 180px 180px;
+    width: 610px;
+    }
+
+.box {
+    border: 2px solid black;
+    width: 180px;
+    height: 180px;
+    font-size: 1000%;
+    text-align: center;
+    color: white;
+}
+
+#titre {
+    text-align: center;
+    font-size: 250%;
+    color: white;
+    padding-bottom: 20px;
+}
+
+.choice {
+    border: 1px solid white;
+    border-radius: 30%;
+    color: red;
+}
+
+.choice:hover {
+    background-color: red;
+    color: white;
+}
+
+#restart {
+    background-color: lightgreen;
+    border-radius: 10%;
+    
+}
+#restart:hover {
+    background-color: gold;
+}
