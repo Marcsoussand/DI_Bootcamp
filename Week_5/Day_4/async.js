@@ -265,3 +265,6 @@ Working With Async Keyword
 //   }
 // }
 // fetchStarship()
+
+
+// https://www.postgresql-archive.org/attachment/6162620/0/Fix_registery_for_JS_pgAdmin4.reg
