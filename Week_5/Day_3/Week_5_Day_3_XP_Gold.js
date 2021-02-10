@@ -12,3 +12,14 @@ const urls = [
 	}))})
   .then(result => console.log(result))
   .catch(error => console.log(error+"Oops, something went wrong"))
+
+
+//   Promise.all(urls.map(url =>
+//     fetch(url).then(people => people.json())
+//   ))
+//   .then(array => {
+//     console.log('1', array[0])
+//     console.log('2', array[1])
+//     console.log('3', array[2])
+//   })
+//   .catch(err => console.log('ughhhh fix it!', err));

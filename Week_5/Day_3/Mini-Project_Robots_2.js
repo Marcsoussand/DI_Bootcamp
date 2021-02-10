@@ -157,3 +157,20 @@ for (x in robots) {
 //         xhr.open('GET', `https://jsonplaceholder.typicode.com/posts?userId=${id}`);
 //         xhr.responseType = 'json';
 //         xhr.send();
+
+
+
+// fetch('https://jsonplaceholder.typicode.com/users')
+//   .then(response => response.json())
+//   .then(console.log)
+
+// async function fetchStarship() {
+//   try {
+//     const response = await fetch('https://jsonplaceholder.typicode.com/users')
+//     const data = await response.json();
+//     console.log(data);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// }
+// fetchStarship()
