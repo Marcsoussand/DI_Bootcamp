@@ -1,0 +1,26 @@
+body {
+    background-image: url('http://wallpapers.net/web/wallpapers/free-download-world-currency-notes-hd-wallpaper-for-desktop-mobiles/thumbnail/lg.jpg');
+    background-size: 2000px 800px;
+}
+
+#container {
+    margin: 150px auto;
+    padding: 15px;
+    background-color: rgba(100, 52, 162, 0.3);
+    width: 500px;
+    text-align: center;
+    border: 3px black solid;
+    border-radius: 10px;
+    color: white;
+    font-size: 150%;
+}
+
+#result {
+    display: none;
+    border: 2px solid black;
+    width: 300px;
+    margin: 15px auto;
+    padding: 0;
+
+
+}
