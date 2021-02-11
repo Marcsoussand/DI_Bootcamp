@@ -1,0 +1,63 @@
+* {
+    margin:0;
+    padding:0;
+}
+
+body {
+    background-image: url("https://i.giphy.com/media/TxVVB6PfWMjE4/200.webp");
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#logo {
+    margin-left:  auto;
+    margin-right: auto;
+    width: 400px;
+    display: block;
+}
+
+
+#container {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    border: 3px yellow solid;
+    width: 600px;
+    height: 250px;
+    border-radius: 15px;
+}
+
+#findButton {
+    display: block;
+    width: 200px;
+    margin: 20px auto;
+    border: solid 3px yellow;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    font-size: 120%;
+}
+
+#waiting {
+    color: white;
+   margin: 20px auto;
+   width: 100px;
+   display: none; 
+}
+
+#name {
+    padding-top: 10px;
+    color:white;
+    text-align: center;
+    font-size: 200%;
+    font-weight: bold;
+}
+
+.textContainer {
+    padding-top: 15px;
+    color:white;
+    text-align: center;
+    display: block;
+    font-size: 150%;
+}
+
