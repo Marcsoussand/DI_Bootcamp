@@ -36,6 +36,7 @@ function randomPeople() {
             home.innerText="Home World : "+planetData.name;
         }
         catch (e) {
+            nameP.innerText="Oh no, that People is not available";
             console.log(e);
         }
     }
