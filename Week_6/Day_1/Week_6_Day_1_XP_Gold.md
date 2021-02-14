@@ -76,3 +76,12 @@ select first_name,last_name from students where first_name like '%a_';
   select first_name,last_name,birth_date from students where birth_date>='2000-01-01';
 
 
+<!-- Ninja questions -->
+<!-- Fetch the first four students. You have to order the answer by last_name alphabetically. -->
+select first_name,last_name,birth_date from students where id<=4 order by first_name ASC;
+
+ <!-- Fetch the birth_date of the youngest student. -->
+ select first_name,last_name,birth_date from students where birth_date = (select max(birth_date) from students);
+
+<!-- Fetch three students, skipping the first two students. -->
+select first_name,last_name,birth_date from students where id>2 and id<=5;
