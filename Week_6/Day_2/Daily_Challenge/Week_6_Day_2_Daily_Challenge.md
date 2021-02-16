@@ -55,4 +55,6 @@ FROM FirstTab a WHERE a.Id NOT IN ( SELECT Id FROM SecondTab WHERE Id IS NOT NUL
 <!-- Result = 2 -->
 
 
+<!-- All wrong, I clearly missed something -->
+
 
