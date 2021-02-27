@@ -199,7 +199,7 @@ async function congratulations() {
     if (matchedCard.length == 8) {
 
         clearInterval(interval);
-        console.log(second - 1);
+        // console.log(second - 1);
         finalTime = timer.innerHTML;
         await sendData();
         // show congratulations modal
@@ -247,7 +247,6 @@ for (var i = 0; i < cards.length; i++) {
 
 async function sendData() {
     let secondBoard = second - 1;
-    console.log(secondBoard);
     let player = document.getElementById('player').value;
     let playerdata = {
         player,
@@ -276,7 +275,7 @@ function getData() {
     fetch('http://localhost:3000/show')
         .then(res => res.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
             showPlayers(data);
 
         })
