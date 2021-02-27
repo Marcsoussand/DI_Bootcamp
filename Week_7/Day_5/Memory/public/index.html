@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/31dd8a6839.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Memory Game</title>
+</head>
+
+<body>
+    <div id="loginContainer">
+        <h1>Welcome to our Memory Game, please enter your name !</h1> <br>
+        <p> Player Name: <input type="text" name="player" value="" id="player"></p>
+        <button type="button" name="button" onClick="begin()">Let's start</button>
+    </div>
+    <div id="container">
+        <header>
+            <h1>Memory Game</h1>
+            <p id="welcome"></p>
+        </header>
+
+
+        <section class="score-panel">
+            <span class="moves">0</span> Move(s)
+            <div class="timer">
+            </div>
+
+            <div class="restart yellow" onclick=startGame()>
+                Restart
+                <i class="fa fa-repeat"></i>
+            </div>
+            <div class="logOut yellow" onclick="logout()">
+                Logout
+                <i class="fas fa-sign-out-alt"></i>
+            </div>
+        </section>
+
+        <ul class="deck" id="card-deck">
+            <li class="card" type="Liverpool">
+                <img class="club" src="https://www.fantasy-coach.fr/wp-content/uploads/2020/08/liverpool.png"
+                    alt="Liverpool">
+            </li>
+            <li class="card" type="Liverpool">
+                <img class="club" src="https://www.fantasy-coach.fr/wp-content/uploads/2020/08/liverpool.png"
+                    alt="Liverpool">
+            </li>
+            <li class="card" type="Mancity">
+                <img class="club" src="https://www.fantasy-coach.fr/wp-content/uploads/2020/08/mancity.png"
+                    alt="Mancity">
+            </li>
+            <li class="card" type="Mancity">
+                <img class="club" src="https://www.fantasy-coach.fr/wp-content/uploads/2020/08/mancity.png"
+                    alt="Mancity">
+            </li>
+            <li class="card" type="Manu">
+                <img class="club" src="https://www.fantasy-coach.fr/wp-content/uploads/2020/08/manutd.png" alt="Manutd">
+            </li>
+            <li class="card" type="Manu">
+                <img class="club" src="https://www.fantasy-coach.fr/wp-content/uploads/2020/08/manutd.png" alt="Manutd">
+            </li>
+            <li class="card" type="Chelsea">
+                <img class="club" src="https://www.fantasy-coach.fr/wp-content/uploads/2020/08/chelsea.png"
+                    alt="Chelsea">
+            </li>
+            <li class="card" type="Chelsea">
+                <img class="club" src="https://www.fantasy-coach.fr/wp-content/uploads/2020/08/chelsea.png"
+                    alt="Chelsea">
+            </li>
+        </ul>
+
+        <div id="popup1" class="overlay">
+            <div class="popup">
+                <h2>Congratulations <i class="fas fa-futbol"></i></h2>
+                <a class="close" href=#>×</a>
+                <div class="content-1">
+                    <i class="fas fa-futbol"></i> Premier League does not have secrets for you <i class="fas fa-futbol"></i>
+                </div>
+                <div class="content-2">
+                    <p id="playerName"></p>
+                    <p>You made <span id=finalMove> </span> moves </p>
+                    <p>in <span id=totalTime> </span> </p>
+                </div>
+                <button id="play-again" onclick="playAgain()">
+                    Play again 😄</a>
+                </button>
+                <br>
+                <div id="leaderBoard">
+                    <h2>Leaderboard</h2>
+                    <p id="root"></p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
