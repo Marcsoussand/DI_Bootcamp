@@ -71,7 +71,6 @@ ReactDOM.render(
 document.getElementById('root')
 );
 
-// ReactDOM.render(<DemoCarousel />, document.querySelector('.demo-carousel'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
