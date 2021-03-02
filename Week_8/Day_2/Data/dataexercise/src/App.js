@@ -9,6 +9,7 @@ class App extends React.Component {
     super()
     this.state = {
       customers: [],
+      textToSearch:'',
     }
 
   }
@@ -25,9 +26,25 @@ class App extends React.Component {
         console.log(err);
       })
   }
+
+  handleSearch = (event) => {
+    console.log(event.target.value);
+    this.setState({textToSearch:event.target.value})
+    // this.state.searchText = event.target.value;
+  }
+
+ 
   render() {
-    const { customers } = this.state;
+    const { customers,textToSearch } = this.state;
+
+    const filterCustomers = customers.filter(item => {
+      return item.country.toLowerCase().includes(textToSearch.toLowerCase())
+    })
     return (
+      // filterCustomers(customers),
+      <>
+      <input type="text" onChange={this.handleSearch}></input>
+      
       <Table striped bordered hover size='sm'>
         <thead>
           <tr>
@@ -46,6 +63,7 @@ class App extends React.Component {
           }
         </tbody>
       </Table >
+      </>
     )
   }
 

@@ -1,20 +1,16 @@
-import CardR from './CardR';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Card from './Card';
+
 
 const CardList = (props) => {
-    const {robots} = props;
-    return(
-        <Row>
-
-        {
-          robots.map((item, i) => {
-            return <Col xs={6} md={3}><CardR id={item.id} name={item.name} email={item.email} key={i} /> </Col>
-
-          })
-        }
-      </Row>
-    )
+  const {robots} = props;
+  return (
+    <div className='tc'>
+    {
+      robots.map((item, i) => {
+        return <Card robot={item} key={i}/>
+      })
+    }
+    </div>
+  );
 }
-
-export default CardList;
+export default CardList
