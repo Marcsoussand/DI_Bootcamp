@@ -7,8 +7,8 @@ import Language from './Components/Language';
 
 
 class App extends React.Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       languages: [{name:'PHP',votes:0},
       {name:'Python',votes:0},
@@ -20,25 +20,23 @@ class App extends React.Component {
  
 
   chgVotes = (i) => {
-      let temp_state = [...this.state];
-      let temp_element = {...temp_state[i]};
-      temp_element.votes=temp_element.votes+1;
-      temp_state[i]=temp_element;
-      this.setState(temp_state);}
+      let temp_languages = [...this.state.languages];
+     temp_languages[i].votes++;
+     this.setState({languages:temp_languages});
+  }
 
 
   
 render() {
-  const {languages} = this.state;
   return (
     <>
     <h1>Vote your language</h1>
     <div>
-      {languages.map( (item,index) => {
-        console.log(item);
+      {this.state.languages.map( (item,index) => {
+        // console.log(item);
         return (
         <div className='langDiv' key={index}>
-        <p>{item.votes}</p><p>{item.name}</p> <button type="button" onClick={() => item.chgVotes(index)}>Click Here</button>
+        <p>{item.votes}</p><p>{item.name}</p> <button type="button" onClick={this.chgVotes.bind(this,index)}>Click Here</button>
         </div> 
         )
         
