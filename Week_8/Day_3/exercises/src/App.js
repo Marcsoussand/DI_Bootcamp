@@ -3,7 +3,7 @@ import React from 'react';
 import './App.css';
 
 class App extends React.Component {
-  //Exercise 1 + 2
+  //Exercise XP #1 - React Lifecycle
   constructor(){
     super();
     this.state = {
