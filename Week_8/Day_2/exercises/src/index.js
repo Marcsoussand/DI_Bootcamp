@@ -67,12 +67,17 @@ ReactDOM.render(
   // />,
 
   //Exercise 5
-  <Jumbotron
-    title="Welcome to react"
-    description="React is the most popular rendering library in the world"
-    buttonLabel="Go to the official website"
-    buttonURL="https://reactjs.org/"
-/>,
+//   <Jumbotron
+//     title="Welcome to react"
+//     description="React is the most popular rendering library in the world"
+//     buttonLabel="Go to the official website"
+//     buttonURL="https://reactjs.org/"
+// />,
+
+//Daily Challenge
+<React.StrictMode>
+    <App />
+  </React.StrictMode>,
 
   document.getElementById('root')
 );
