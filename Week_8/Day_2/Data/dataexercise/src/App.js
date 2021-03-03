@@ -3,47 +3,94 @@ import Customer from './components/Customer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Table from 'react-bootstrap/Table';
 import './App.css';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 class App extends React.Component {
   constructor() {
     super()
     this.state = {
       customers: [],
-      textToSearch:'',
+      offset:0,
+      count:0,
     }
 
   }
 
   componentDidMount() {
-    fetch('http://localhost:9000/getAllCustomers')
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        this.setState({customers:data})
+    fetch(`http://localhost:9000/getCountCustomers`)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      this.setState({count:data[0].count})
+      this.getCustomers();
 
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
 
-  handleSearch = (event) => {
-    console.log(event.target.value);
-    this.setState({textToSearch:event.target.value})
-    // this.state.searchText = event.target.value;
+[
+  {count:0}
+]
+
+  getCustomers = (next = 0 ) =>{
+    this.setState({offset:next})
+    fetch(`http://localhost:9000/getAllCustomers?offset=${next}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      this.setState({customers:data})
+
+    })
+    .catch(err => {
+      console.log(err);
+    })
+
   }
 
+
+  searchCustomer = (e) => {
+    // console.log(e.target.value);
+    const query = e.target.value;
+    fetch(`http://localhost:9000/search?q=${query}`)
+    .then(res => res.json())
+    .then(data => {
+      this.setState({customers:data})
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
  
   render() {
-    const { customers,textToSearch } = this.state;
+    const { customers, offset, count } = this.state;
 
-    const filterCustomers = customers.filter(item => {
-      return item.country.toLowerCase().includes(textToSearch.toLowerCase())
-    })
+    const nextOffset = offset +15;
+    const prevOffset = offset-15;
+    const prevDisable = (offset<=0) ? 'disabled' : '';
+    const nextDisable = (offset>count-15) ?'disabled' : '';
+console.log("count:"+count);
     return (
-      // filterCustomers(customers),
       <>
-      <input type="text" onChange={this.handleSearch}></input>
+      <Form>
+        
+      <Form.Control type="search" 
+      style={{width:'350px',marginTop:'5px',marginBottom:'5px'}}
+      placeholder="Search Customer by country" 
+      onChange={this.searchCustomer}/>
+      </Form>
+
+      <Form>
+        <Button variant="primary" disabled={prevDisable}
+        onClick= {()=> this.getCustomers(prevOffset)}
+        >Prev</Button>
+        <Button variant="secondary" disabled={nextDisable}
+        onClick= {()=> this.getCustomers(nextOffset)}
+        >Next</Button>
+        </Form>
+     
       
       <Table striped bordered hover size='sm'>
         <thead>

@@ -101,6 +101,9 @@ class App extends React.Component {
       alert(this)
     }
 
+    shoot3 = ()=> {
+      alert(this)
+    }
 
     componentDidMount() {
     }
@@ -117,6 +120,8 @@ class App extends React.Component {
           <button onClick={this.shoot}>Shoot Again</button>
           <div>Exercise 3</div>
           <button onClick={this.shoot2}>Keep shooting</button>
+          <div>Exercise 4</div>
+          <button onClick={this.shoot3}>Keep shooting</button>
           
         </>
       )

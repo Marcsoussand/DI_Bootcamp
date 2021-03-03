@@ -2,17 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import BuggyCounter from './App';
 import reportWebVitals from './reportWebVitals';
-import Hello from './Hello';
-import ErrorBoundary from './ErrorBoundary';
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <ErrorBoundary>
     <App />
-    </ErrorBoundary>
-    
   </React.StrictMode>,
   document.getElementById('root')
 );
