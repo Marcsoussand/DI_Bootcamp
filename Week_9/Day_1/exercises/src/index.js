@@ -6,11 +6,12 @@ import XP1_ex1 from './XP1_ex1';
 import XP1_ex2 from './XP1_ex2';
 import {BrowserRouter} from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import Daily_challenge1 from './Daily_challenge1';
 
 ReactDOM.render(
   <React.StrictMode>
    <BrowserRouter>
-    <XP1_ex2 />
+    <Daily_challenge1 />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
