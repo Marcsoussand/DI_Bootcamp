@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
-import {Button} from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { 
     increaseCount,
     decreaseCount
-} from './actions'
+} from '../Actions/Counter'
 
 class Counter extends Component {
 
@@ -29,9 +28,9 @@ render() {
 
     return(
         <div>
-        <Button onClick={increaseCount} >+</Button>
+        <button onClick={increaseCount} >+</button>
         <span>{this.props.count}</span>
-        <Button onClick={decreaseCount}>-</Button>
+        <button onClick={decreaseCount}>-</button>
         </div>
     )
 }
