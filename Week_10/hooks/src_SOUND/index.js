@@ -2,15 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-// import AppClass from './AppClass';
-import AppContext from './AppContext';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppContext>
     <App />
-    </AppContext>
   </React.StrictMode>,
   document.getElementById('root')
 );

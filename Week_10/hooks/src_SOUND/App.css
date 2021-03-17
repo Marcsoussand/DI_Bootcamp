@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+#container {
+  text-align: center;
+  border-radius: 10px;
+  width: 375px;
+  height: 200px;
+  background-color: grey;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.bpm-slider {
+  width: 100%;
+  margin: 10px;
+}
+
+#start {
+  background: red;
+  padding: 10px;
+  border: 1px solid #000;
+  border-radius: 10px;
+}
