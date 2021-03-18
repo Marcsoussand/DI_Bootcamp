@@ -57,26 +57,25 @@ class App extends React.Component {
         break;
       case 'x':
         let tempResult2 = operator1 * operator2;
-        this.setState({ result: tempResult2, op2: '', op1: tempResult2 })
+        this.setState({ result: tempResult2, op2: '', op1: tempResult2 });
         break;
         case '-' :
           let tempResult3 = operator1 - operator2;
-        this.setState({ result: tempResult3, op2: '', op1: tempResult3 })
+        this.setState({ result: tempResult3, op2: '', op1: tempResult3 });
         break;
         case '/' :
           let tempResult4 = operator1 / operator2;
-        this.setState({ result: tempResult4, op2: '', op1: tempResult4 })
+        this.setState({ result: tempResult4, op2: '', op1: tempResult4 });
         break;
-      
-
-
-break;
       default:
         
         break;
     }
   }
 
+  clearAll = () => {
+    this.setState({result: 0,op1: '', op2: '', operator: '', first: true,})
+  }
 
   render() {
     const { result, op1, op2, operator, first } = this.state;
@@ -84,7 +83,7 @@ break;
       <>
         <div id='container'>
           <button id='screen'>{result}</button>
-          <button id='ac' className='size' >AC</button>
+          <button id='ac' className='size' onClick={this.clearAll} >AC</button>
           <button id='divide' value='/' className='orange size' onClick={this.fillOperator}>/</button>
           <button id='multiply' value='x' className='orange size' onClick={this.fillOperator}>x</button>
           <button id='seven' value='7' className='number size' onClick={this.fillOp}>7</button>
