@@ -1,0 +1,8 @@
+nav {
+    background-color: blue;
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+    color: white;
+    font-size: 150%;
+}

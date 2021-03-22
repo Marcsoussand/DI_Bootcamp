@@ -1,38 +1,62 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#field {
+  
+  width: 400px;
+  height: 605px;
+  border: 1px solid black;
+  background-image: url("Field.svg.png");
+  display: grid;
+  grid-template-columns: repeat(5,20%);
+  grid-template-rows: repeat(5,20%); 
+  margin: 30px auto;
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.teamColor {
+  color:red;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+#goal {
+  margin-top: 40px;
+  margin-left: 10px;
+  grid-column: 3/3;
+  grid-row: 1/2;
 }
 
-.App-link {
-  color: #61dafb;
+
+#goalName {
+  padding-left: 12px;
+}
+/* #goalKeeper {
+  margin-top: 40px;
+  margin-left: 10px;
+  grid-column: 3/4;
+  grid-row: 1/2;
+} */
+
+.defender {
+  margin:20px 50px;
+  grid-row: 2/3;
+  /* grid-column: 1/8; */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.midfielder {
+  margin: 35px 90px;
+  grid-row: 3/4;
 }
+
+.forward {
+  margin: 40px 90px;
+  grid-row: 4/5;
+}
+
+#player2 {
+  padding-right:15px;
+}
+
+

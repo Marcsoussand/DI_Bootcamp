@@ -16,6 +16,7 @@ export const reqType = {
 
 export const doCORSRequest = async (url) => {
   const response = await fetch(proxyURL + baseURL + url);
+// const response = await fetch(baseURL+url);
   const myJson = await response.json();
   return myJson
 }
