@@ -3,7 +3,7 @@ const baseURL = 'https://fantasy.premierleague.com/api/';
 
 export const reqType = {
   players: 'elements/', // All players
-  bootstrap : 'bootstrap-static/', //Overview
+  bootstrap : 'bootstrap-static', //Overview
   element : 'element-summary/', //Players (playderID)
   events : 'events', // Get all gameweeks
   event : 'event',  //A selected gameweek
@@ -16,7 +16,6 @@ export const reqType = {
 
 export const doCORSRequest = async (url) => {
   const response = await fetch(proxyURL + baseURL + url);
-// const response = await fetch(baseURL+url);
   const myJson = await response.json();
   return myJson
 }
