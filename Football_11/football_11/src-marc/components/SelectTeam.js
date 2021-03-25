@@ -6,19 +6,18 @@ import React from 'react';
 
 const SelectTeam = (props) =>{
 
-    let {listTeams, setTeam} = props;
+    let {listTeams, changeColor} = props;
+    
+    
 
+    // console.log("First :",{color,team});  
 
-
-    // console.log("First :",{color,team});
-
-
+    
 
 return (
     <>
     <label htmlFor="mySelect">Choose your team : </label>
-    {/* <select id='mySelect' className="selector" onChange={changeColor} disabled={disabled} > */}
-    <select id='mySelect' className="selector" onChange={setTeam} >
+    <select id='mySelect' className="selector" onChange={changeColor}>
         {listTeams.map((item,i) => {
 
             return <option id={item.teamName} key={i} value={item.teamName} >{item.teamName}</option>})}
@@ -40,3 +39,4 @@ return (
 // export default connect(mapStateToProps,mapDispatchToProps)(SelectTeam);
 
 export default SelectTeam;
+

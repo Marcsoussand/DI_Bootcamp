@@ -7,7 +7,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import SelectDisplay from './components/SelectDisplay';
 import PlayersOnField from './components/PlayersonField';
-import dataInit from './Elements';
+import './Elements.json';
 
 
 const listTeams = [
@@ -49,7 +49,6 @@ class App extends React.Component {
         'Def1', 'Def2', 'Azpilicueta', 'Def4',
         'Mid1', 'Mid2', 'Mid3',
         'For1', 'For2', 'For3'],
-        goalKeeperName:'',
       display: '4-3-3',
       displayFormation: ['line4-1 player defender',
         'line4-2 player defender', 'line4-3 player defender',
@@ -68,19 +67,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://cors-anywhere.herokuapp.com/https://fantasy.premierleague.com/api/bootstrap-static/',{
-      method:"GET",
-      mode: "cors", // no-cors, *cors, same-origin
-      // headers:{
-      //   "Access-Control-Allow-Origin": "*",
-      //   'Access-Control-Allow-Headers': "*"
-      // }
-    })
+    fetch('https://cors-anywhere.herokuapp.com/https://fantasy.premierleague.com/api/bootstrap-static/')
       .then(response => response.json())
-      .then(playerData => {
-        console.log(playerData);
-        this.setState({ data: playerData })
-      })
+      .then(playerData => this.setState({ data: playerData }))
 
 
 
@@ -209,43 +198,30 @@ class App extends React.Component {
 
   }
 
-  setTeam = (e) => {
-    const teamPicked = [...listTeams].find(t => t.teamName === e.target.value);
-    console.log('teamPicked',teamPicked);
+  changeColor = async (e) => {
+    const teamPicked = listTeams.find(t => t.teamName === e.target.value);
+    console.log(teamPicked);
 
-    //this.setState({ team: teamPicked.teamName, backgroundColor: teamPicked.color, idteam: teamPicked.id });
-
+    this.setState({ team: teamPicked.teamName, backgroundColor: teamPicked.color, idteam: teamPicked.id });
+    console.log(this.state);
 
     // this.getPlayer();
-// if(this.state.data.elements){
+
     // Filter through list of all players to get the players of the team who are not injured
-    const playersTeam = this.state.data.elements.filter(t => t.team === this.state.idteam && t.chance_of_playing_this_round === 100);
+    const playersTeam = await this.state.data.elements.filter(t => t.team === this.state.idteam && t.chance_of_playing_this_round >= 75);
     // // // Get only the best goalkeeper
-    const goalKeeperList = playersTeam.filter(t => t.element_type === 1);
-    const defenderList = playersTeam.filter(t => t.element_type === 2);
-    var defendervalue=[];
-  
-      // for (i=0;i<display.charAt(0);i++) {
-      //   defendervalue.push(Math.max(...defenderList.map(o => o.now_cost), 0))
-        
-      // }
-    
-    // const midfielderList = playersTeam.filter(t => t.element_type === 3);
-    // const forwardList = playersTeam.filter(t => t.element_type === 4);
+    const goalKeeperList = await playersTeam.filter(t => t.element_type === 1);
     const goalKeeper1 = Math.max(...goalKeeperList.map(o => o.now_cost), 0);
-    const goalKeeper = goalKeeperList.find(t => t.now_cost === goalKeeper1);
+    const goalKeeper = await goalKeeperList.find(t => t.now_cost === goalKeeper1);
     console.log("players", playersTeam);
-    // const goalKeeperN = goalKeeperList.web_name;
+    // const goalKeeperN = await goalKeeperList.web_name;
 
     // this.setState({goalKeeperName: goalKeeper.web_name});
-    this.setState({ team: teamPicked.teamName,
-                    backgroundColor: teamPicked.color,
-                    idteam: teamPicked.id,
-                  goalKeeperName: goalKeeper?goalKeeper.web_name:'' });
 
-// }
-    
-     
+
+    //   const defenderList = playersTeam.filter(t => t.element_type === 2);
+    //   const midfielderList = playersTeam.filter(t => t.element_type === 3);
+    //   const forwardList = playersTeam.filter(t => t.element_type === 4);
 
   }
 
@@ -258,7 +234,7 @@ class App extends React.Component {
   //  const goalKeeper = goalKeeperList.find(t => t.now_cost === goalKeeper1);
   //  const goalKeeperName1 = goalKeeper[0];
   //  console.log("players",playersTeam);
-  //  console.log(goalKeeper);
+  //  console.log(goalKeeper);  
   //  }
 
 
@@ -283,8 +259,8 @@ class App extends React.Component {
 
 
   render() {
-    console.log('this.state',this.state);
-    const { displayFormation, backgroundColor, playersName, goalKeeperName } = this.state;
+    const { displayFormation,
+      backgroundColor, playersName } = this.state;
     // console.log(getPlayer(120))
     //  const db = this.doCORSRequest;
     //  console.log("coucou",db);
@@ -299,15 +275,14 @@ class App extends React.Component {
     return (
       <>
         <Navbar />
-        {/* <SelectTeam listTeams={listTeams} changeColor={this.changeColor} disabled={this.state.data.elements?true:false}/> */}
-        <SelectTeam listTeams={listTeams} setTeam={this.setTeam}/>
+        <SelectTeam listTeams={listTeams} changeColor={this.changeColor} />
         <br />
         <SelectDisplay formation={formation} changeDisplay={this.changeDisplay} />
         {/* <div id='container'>
           <PlayersOnField id='playersOnField1' playersName={playersName}/> */}
         <div id='field'>
 
-          <div id='goal' className='player'><i id='player goalKeeper' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='goalName'>{goalKeeperName}</p></div>
+          <div id='goal' className='player'><i id='player goalKeeper' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='goalName'>{playersName[0]}</p></div>
           <div className={displayFormation[0]}><i id='player2' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def1Name'>{playersName[1]}</p></div>
           <div className={displayFormation[1]}><i id='player3' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def2Name'>{playersName[2]}</p></div>
           <div className={displayFormation[2]}><i id='player4' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def3Name'>{playersName[3]}</p></div>
