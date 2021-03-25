@@ -2,9 +2,9 @@ import React from 'react';
 
 const SelectDisplay = (props) =>{
 
-    let {changeDisplay} = props;
+    let {formation, changeDisplay} = props;
 
-    const formation = ["4-3-3","4-3-2-1","4-2-3-1","4-4-2","5-4-1"];
+    
     
     
 

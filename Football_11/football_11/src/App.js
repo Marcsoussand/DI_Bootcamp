@@ -31,6 +31,7 @@ const listTeams = [
   { id: 20, teamName: "Wolverhampton", color: "#F9A01B" }
 ];
 
+const formation = ["4-3-3","4-3-2-1","4-2-3-1","4-4-2","5-4-1","5-3-2"];
 
 
 
@@ -42,10 +43,23 @@ class App extends React.Component {
       team: '',
       idteam: '',
       data:{},
-      playersName:['GoalKeeper',
-       'Def1','Def2','Def3','Def4',
+      playersName:['Goal',
+       'Def1','Def2','Azpilicueta','Def4',
        'Mid1','Mid2','Mid3',
-       'For1','For2','Ford3']
+       'For1','For2','For3'],
+       display:'4-3-3',
+       displayDef1:'line4-1 player defender',
+       displayDef2:'line4-2 player defender',
+       displayDef3:'line4-3 player defender',
+       displayDef4:'line4-4 player defender',
+       displayMid1:'line3-1 player midfielder',
+       displayMid2:'line3-2 player midfielder',
+       displayMid3:'line3-3 player midfielder',
+       displayFor1:'line3-1 player forward',
+       displayFor2:'line3-2 player forward',
+       displayFor3:'line3-3 player forward',
+
+
   
 
     }
@@ -60,11 +74,90 @@ class App extends React.Component {
     
   }
 
-  changeDisplay = () => {
+  changeDisplay = async (e) => {
+await this.setState({display:e.target.value});
+console.log(this.state.display);
+ switch (this.state.display) {
+  case '4-3-3':
+    this.setState({displayDef1:'line4-1 player defender',
+    displayDef2:'line4-2 player defender',
+    displayDef3:'line4-3 player defender',
+    displayDef4:'line4-4 player defender',
+    displayMid1:'line3-1 player midfielder',
+    displayMid2:'line3-2 player midfielder',
+    displayMid3:'line3-3 player midfielder',
+    displayFor1:'line3-1 player forward',
+    displayFor2:'line3-2 player forward',
+    displayFor3:'line3-3 player forward'})
+    break;
+case '4-2-3-1':
+  this.setState({displayDef1:'line4-1 player defender',
+  displayDef2:'line4-2 player defender',
+  displayDef3:'line4-3 player defender',
+  displayDef4:'line4-4 player defender',
+  displayMid1:'line2-1 player defmidfielder',
+  displayMid2:'line2-2 player defmidfielder',
+  displayMid3:'line3-1 player offmidfielder',
+  displayFor1:'line3-2 player offmidfielder',
+  displayFor2:'line3-3 player offmidfielder',
+  displayFor3:'line1-1 player forward'})
+break;
+case '4-3-2-1':
+  this.setState({displayDef1:'line4-1 player defender',
+  displayDef2:'line4-2 player defender',
+  displayDef3:'line4-3 player defender',
+  displayDef4:'line4-4 player defender',
+  displayMid1:'line3-1 player defmidfielder',
+  displayMid2:'line3-2 player defmidfielder',
+  displayMid3:'line3-3 player defmidfielder',
+  displayFor1:'line2-1 player offmidfielder',
+  displayFor2:'line2-2 player offmidfielder',
+  displayFor3:'line1-1 player forward'})
+break;
+case '4-4-2':
+  this.setState({displayDef1:'line4-1 player defender',
+  displayDef2:'line4-2 player defender',
+  displayDef3:'line4-3 player defender',
+  displayDef4:'line4-4 player defender',
+  displayMid1:'line4-1 player midfielder',
+  displayMid2:'line4-2 player midfielder',
+  displayMid3:'line4-3 player midfielder',
+  displayFor1:'line4-4 player midfielder',
+  displayFor2:'line2-1 player forward',
+  displayFor3:'line2-2 player forward'})
+  break;
+  case '5-4-1':
+    this.setState({displayDef1:'line5-1 player defender',
+    displayDef2:'line5-2 player defender',
+    displayDef3:'line5-3 player defender',
+    displayDef4:'line5-4 player defender',
+    displayMid1:'line5-5 player defender',
+    displayMid2:'line4-1 player midfielder',
+    displayMid3:'line4-2 player midfielder',
+    displayFor1:'line4-3 player midfielder',
+    displayFor2:'line4-4 player midfielder',
+    displayFor3:'line1-1 player forward'})
+    break;
+    case '5-3-2':
+    this.setState({displayDef1:'line5-1 player defender',
+    displayDef2:'line5-2 player defender',
+    displayDef3:'line5-3 player defender',
+    displayDef4:'line5-4 player defender',
+    displayMid1:'line5-5 player defender',
+    displayMid2:'line3-1 player midfielder',
+    displayMid3:'line3-2 player midfielder',
+    displayFor1:'line3-3 player midfielder',
+    displayFor2:'line2-1 player forward',
+    displayFor3:'line2-2 player forward'})
+    break;
+  default:
+    break;
+}
+    
 
   }
 
-  changeColor = (e) => {
+  changeColor = async (e) => {
     const teamPicked = listTeams.find(t => t.teamName === e.target.value);
     console.log(teamPicked);
 
@@ -78,9 +171,9 @@ class App extends React.Component {
     // // // Get only the best goalkeeper
     const goalKeeperList = playersTeam.filter(t => t.element_type === 1);
     const goalKeeper1 = Math.max(...goalKeeperList.map(o => o.now_cost), 0);
-    const goalKeeper = goalKeeperList.find(t => t.now_cost === goalKeeper1);
+    const goalKeeper =  await goalKeeperList.find(t => t.now_cost === goalKeeper1);
     console.log("players",playersTeam);
-    // const goalKeeperN = goalKeeperList[0].web_name;
+    // const goalKeeperN = goalKeeperList.web_name;
 
     // this.setState({goalKeeperName: goalKeeper.web_name});
     
@@ -125,7 +218,8 @@ class App extends React.Component {
 
 
   render() {
-    const { backgroundColor, playersName } = this.state;
+    const { displayDef1, displayDef2, displayDef3, displayDef4, displayMid1, displayMid2, displayMid3, displayFor1, displayFor2, displayFor3,
+       backgroundColor, playersName } = this.state;
     // console.log(getPlayer(120))
   //  const db = this.doCORSRequest;
   //  console.log("coucou",db);
@@ -142,20 +236,20 @@ class App extends React.Component {
         <Navbar />
         <SelectTeam listTeams={listTeams} changeColor={this.changeColor} />
         <br/>
-        <SelectDisplay changeDisplay={this.changeDisplay}/>
+        <SelectDisplay formation={formation} changeDisplay={this.changeDisplay}/>
         <div id='field'>
 
-          <div id='goal'><i id='goalKeeper' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='goalName'>{playersName[0]}</p></div>
-          <div id='def1'className='defender'><i id='player2' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def1Name'>{playersName[1]}</p></div>
-          <div id='def2' className='defender'><i id='player3' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def2Name'>{playersName[2]}</p></div>
-          <div id='def3' className='defender'><i id='player4' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def3Name'>{playersName[3]}</p></div>
-          <div id='def4' className='defender'><i id='player5' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def4Name'>{playersName[4]}</p></div>
-          <div id='mid1' className="midfielder"><i id='player6' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid1Name'>{playersName[5]}</p></div>
-          <div id='mid2' className="midfielder"><i id='player7' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid2Name'>{playersName[6]}</p></div>
-          <div id='mid3' className="midfielder"><i id='player8' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid3Name'>{playersName[7]}</p></div>
-          <div id='for1' className="forward"><i id='player9' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for1Name'>{playersName[8]}</p></div>
-          <div id='for2' className="forward"><i id='player10' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for2Name'>{playersName[9]}</p></div>
-          <div id='for3' className="forward"><i id='player11' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for3Name'>{playersName[10]}</p></div>
+          <div id='goal'  className='player'><i id='player goalKeeper' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='goalName'>{playersName[0]}</p></div>
+          <div className={displayDef1}><i id='player2' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def1Name'>{playersName[1]}</p></div>
+          <div className={displayDef2}><i id='player3' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def2Name'>{playersName[2]}</p></div>
+          <div className={displayDef3}><i id='player4' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def3Name'>{playersName[3]}</p></div>
+          <div className={displayDef4}><i id='player5' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def4Name'>{playersName[4]}</p></div>
+          <div className={displayMid1}><i id='player6' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid1Name'>{playersName[5]}</p></div>
+          <div className={displayMid2}><i id='player7' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid2Name'>{playersName[6]}</p></div>
+          <div className={displayMid3}><i id='player8' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid3Name'>{playersName[7]}</p></div>
+          <div className={displayFor1}><i id='player9' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for1Name'>{playersName[8]}</p></div>
+          <div className={displayFor2}><i id='player10' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for2Name'>{playersName[9]}</p></div>
+          <div className={displayFor3}><i id='player11' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for3Name'>{playersName[10]}</p></div>
 
         </div>
         <Footer />
