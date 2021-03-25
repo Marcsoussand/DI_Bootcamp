@@ -10,8 +10,14 @@ body {
   
 }
 
+/* #container {
+  position: relative;
+} */
+/* #playersOnField1 {
+  float: left;
+} */
 #field {
-  
+  /* position: absolute; */
   width: 400px;
   height: 605px;
   border: 1px solid black;
@@ -115,6 +121,10 @@ body {
 
 
 .selector {
-  margin: 10px 0 0 15px;
+  margin: 10px 0 5px 15px;
+  background-color: transparent;
+    border: none;
+    color: #162955;;
+    border-bottom: 1px solid white;
 }
 
