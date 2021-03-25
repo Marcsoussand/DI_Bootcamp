@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
-import baseRequest from './requests/baseRequest';
-import getDataBase from './requests/getDataBase';
+// import baseRequest from './requests/baseRequest';
+// import getDataBase from './requests/getDataBase';
 import SelectTeam from './components/SelectTeam';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import SelectDisplay from './components/SelectDisplay';
 
 
 const listTeams = [
@@ -41,49 +42,90 @@ class App extends React.Component {
       team: '',
       idteam: '',
       data:{},
-      goalKeeperName:'',
+      playersName:['GoalKeeper',
+       'Def1','Def2','Def3','Def4',
+       'Mid1','Mid2','Mid3',
+       'For1','For2','Ford3']
+  
+
     }
   }
 
+   componentDidMount() {
+    fetch('https://cors-anywhere.herokuapp.com/https://fantasy.premierleague.com/api/bootstrap-static/')
+    .then(response => response.json())
+    .then(playerData => this.setState({data:playerData}))
+  
+    
+    
+  }
+
+  changeDisplay = () => {
+
+  }
+
   changeColor = (e) => {
-    const teamPicked = listTeams.find(t => t.teamName == e.target.value);
+    const teamPicked = listTeams.find(t => t.teamName === e.target.value);
+    console.log(teamPicked);
 
     this.setState({ team: teamPicked.teamName, backgroundColor: teamPicked.color,idteam:teamPicked.id });
     console.log(this.state);
-    // Filter through list of all players to get the players of the team who are not injured
-    const playersTeam = this.state.data.elements.filter(t => t.team == this.state.idteam && t.chance_of_playing_this_round == '100');
-    // Get only the best goalkeeper
-    const goalKeeperList = playersTeam.filter(t => t.element_type == 1);
-    const goalKeeper1 = Math.max(...goalKeeperList.map(o => o.now_cost), 0);
-    const goalKeeper = goalKeeperList.find(t => t.now_cost == goalKeeper1);
-    // this.setState({goalKeeperName: goalKeeper.second_name}) 
     
-    // const goalName = goalKeeper.second_name;
+    // this.getPlayer();
+    
+    // Filter through list of all players to get the players of the team who are not injured
+    const playersTeam = this.state.data.elements.filter(t => t.team === this.state.idteam && t.chance_of_playing_this_round === 100);
+    // // // Get only the best goalkeeper
+    const goalKeeperList = playersTeam.filter(t => t.element_type === 1);
+    const goalKeeper1 = Math.max(...goalKeeperList.map(o => o.now_cost), 0);
+    const goalKeeper = goalKeeperList.find(t => t.now_cost === goalKeeper1);
+    console.log("players",playersTeam);
+    // const goalKeeperN = goalKeeperList[0].web_name;
 
-    const defenderList = playersTeam.filter(t => t.element_type === 2);
-    const midfielderList = playersTeam.filter(t => t.element_type === 3);
-    const forwardList = playersTeam.filter(t => t.element_type === 4);
-   
-   console.log("players",goalKeeper1,"goal",goalKeeper); 
+    // this.setState({goalKeeperName: goalKeeper.web_name});
+    
 
-  }
-
- getPlayer = () => {
-   const playersTeam = this.state.data.elements.filter(t => t.team === this.state.idteam );
-   console.log("players",playersTeam); 
- }
-
-  componentDidMount() {
-    fetch('https://cors-anywhere.herokuapp.com/https://fantasy.premierleague.com/api/bootstrap-static/')
-    .then(res => res.json())
-    .then(json => this.setState({ data: json }))
-    // .then(this.getPlayer);
-
+  //   const defenderList = playersTeam.filter(t => t.element_type === 2);
+  //   const midfielderList = playersTeam.filter(t => t.element_type === 3);
+  //   const forwardList = playersTeam.filter(t => t.element_type === 4);
 
   }
+
+
+
+//  getPlayer = () => {
+//    const playersTeam = this.state.data.elements.filter(t => t.team === idteam1 && t.chance_of_playing_this_round === 100 );
+  //  const goalKeeperList = playersTeam.filter(t => t.element_type === 1);
+  //  const goalKeeper1 = Math.max(...goalKeeperList.map(o => o.now_cost), 0);
+  //  const goalKeeper = goalKeeperList.find(t => t.now_cost === goalKeeper1);
+  //  const goalKeeperName1 = goalKeeper[0];
+  //  console.log("players",playersTeam);
+  //  console.log(goalKeeper);  
+//  }
+
+  
+    // const playersTeam = await this.state.data.elements.filter(t => t.team === this.state.idteam && t.chance_of_playing_this_round === '100');
+    // const goalKeeperList = await playersTeam.filter(t => t.element_type === 1);
+    // const goalKeeper1 = Math.max(...goalKeeperList.map(o => o.now_cost), 0);
+    // const goalKeeper = await goalKeeperList.find(t => t.now_cost === goalKeeper1)
+  
+    // this.setState({goalKeeperName: goalKeeper.web_name})
+    
+
+    // .then(res => res.json())
+    // .then(json => this.setState({ data: json }))
+
+    // .then(json => json.elements.filter(t => t.team == this.state.idteam && t.chance_of_playing_this_round == '100')
+    // .then(play2 => play2.filter(t => t.element_type == 1)
+    // .then(play3 => Math.max(...play2.map(o => o.now_cost), 0)
+    // .then(play4 => play2.find(t => t.now_cost == play3)
+    // .then(play5 => console.log(play4))
+  // }
+  // catch (e){console.log("error");}
+
 
   render() {
-    const { backgroundColor, team, idteam,data,players,goalKeeperName } = this.state;
+    const { backgroundColor, playersName } = this.state;
     // console.log(getPlayer(120))
   //  const db = this.doCORSRequest;
   //  console.log("coucou",db);
@@ -99,21 +141,24 @@ class App extends React.Component {
       <>
         <Navbar />
         <SelectTeam listTeams={listTeams} changeColor={this.changeColor} />
+        <br/>
+        <SelectDisplay changeDisplay={this.changeDisplay}/>
         <div id='field'>
 
-          <div id='goal'><i id='goalKeeper' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='goalName'>{goalKeeperName}</p></div>
-          <i id='player2' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x  defender"></i>
-          <i id='player3' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x  defender"></i>
-          <i id='player4' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x  defender"></i>
-          <i id='player5' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x  defender"></i>
-          <i id='player6' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x  midfielder"></i>
-          <i id='player7' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x  midfielder"></i>
-          <i id='player8' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x  midfielder"></i>
-          <i id='player9' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x  forward"></i>
-          <i id='player10' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x  forward"></i>
-          <i id='player11' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x  forward"></i>
+          <div id='goal'><i id='goalKeeper' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='goalName'>{playersName[0]}</p></div>
+          <div id='def1'className='defender'><i id='player2' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def1Name'>{playersName[1]}</p></div>
+          <div id='def2' className='defender'><i id='player3' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def2Name'>{playersName[2]}</p></div>
+          <div id='def3' className='defender'><i id='player4' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def3Name'>{playersName[3]}</p></div>
+          <div id='def4' className='defender'><i id='player5' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def4Name'>{playersName[4]}</p></div>
+          <div id='mid1' className="midfielder"><i id='player6' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid1Name'>{playersName[5]}</p></div>
+          <div id='mid2' className="midfielder"><i id='player7' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid2Name'>{playersName[6]}</p></div>
+          <div id='mid3' className="midfielder"><i id='player8' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid3Name'>{playersName[7]}</p></div>
+          <div id='for1' className="forward"><i id='player9' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for1Name'>{playersName[8]}</p></div>
+          <div id='for2' className="forward"><i id='player10' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for2Name'>{playersName[9]}</p></div>
+          <div id='for3' className="forward"><i id='player11' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for3Name'>{playersName[10]}</p></div>
 
         </div>
+        <Footer />
       </>
 
     )

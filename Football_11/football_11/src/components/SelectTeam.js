@@ -16,9 +16,8 @@ const SelectTeam = (props) =>{
 
 return (
     <>
-    <h4>Choose your team</h4>
-    
-    <select id='mySelect' onChange={changeColor}>
+    <label htmlFor="mySelect">Choose your team : </label>
+    <select id='mySelect' className="selector" onChange={changeColor}>
         {listTeams.map((item,i) => {
 
             return <option id={item.teamName} key={i} value={item.teamName} >{item.teamName}</option>})}
