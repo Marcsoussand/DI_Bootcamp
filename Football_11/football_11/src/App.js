@@ -69,7 +69,11 @@ class App extends React.Component {
         'line3-3 player midfielder',
         'line3-1 player forward',
         'line3-2 player forward',
-        'line3-3 player forward']
+        'line3-3 player forward'],
+        defenders:4,
+        midfielders:3,
+        forward:3,
+        disabled:false
 
 
 
@@ -112,7 +116,10 @@ class App extends React.Component {
             'line3-3 player midfielder',
             'line3-1 player forward',
             'line3-2 player forward',
-            'line3-3 player forward']
+            'line3-3 player forward'],
+            defenders:4,
+            midfielders:3,
+            forward:4
         })
         break;
       case '4-2-3-1':
@@ -126,7 +133,10 @@ class App extends React.Component {
             'line3-1 player offmidfielder',
             'line3-2 player offmidfielder',
             'line3-3 player offmidfielder',
-            'line1-1 player forward']
+            'line1-1 player forward'],
+            defenders:4,
+            midfielders:5,
+            forward:1
         })
         break;
       case '4-3-2-1':
@@ -140,7 +150,10 @@ class App extends React.Component {
             'line3-3 player defmidfielder',
             'line2-1 player offmidfielder',
             'line2-2 player offmidfielder',
-            'line1-1 player forward']
+            'line1-1 player forward'],
+            defenders:4,
+            midfielders:5,
+            forward:1
         })
         break;
       case '4-4-2':
@@ -154,7 +167,10 @@ class App extends React.Component {
             'line4-3 player midfielder',
             'line4-4 player midfielder',
             'line2-1 player forward',
-            'line2-2 player forward']
+            'line2-2 player forward'],
+            defenders:4,
+            midfielders:4,
+            forward:2
         })
         break;
       case '5-4-1':
@@ -168,7 +184,10 @@ class App extends React.Component {
             'line4-2 player midfielder',
             'line4-3 player midfielder',
             'line4-4 player midfielder',
-            'line1-1 player forward']
+            'line1-1 player forward'],
+            defenders:5,
+            midfielders:4,
+            forward:1
         })
         break;
       case '5-3-2':
@@ -182,7 +201,10 @@ class App extends React.Component {
             'line3-2 player midfielder',
             'line3-3 player midfielder',
             'line2-1 player forward',
-            'line2-2 player forward']
+            'line2-2 player forward'],
+            defenders:5,
+            midfielders:3,
+            forward:2
         })
         break;
       case '3-5-2':
@@ -196,7 +218,10 @@ class App extends React.Component {
             'line5-4 player midfielder',
             'line5-5 player midfielder',
             'line2-1 player forward',
-            'line2-2 player forward']
+            'line2-2 player forward'],
+            defenders:3,
+            midfielders:5,
+            forward:2
         })
         break;
         case '3-4-3':
@@ -210,7 +235,10 @@ class App extends React.Component {
               'line4-4 player midfielder',
               'line3-1 player forward',
               'line3-2 player forward',
-              'line3-3 player forward']
+              'line3-3 player forward'],
+              defenders:3,
+              midfielders:4,
+              forward:3
           })
           break;
       default:
@@ -224,7 +252,7 @@ class App extends React.Component {
     const teamPicked = [...listTeams].find(t => t.teamName === e.target.value);
     console.log('teamPicked',teamPicked);
 
-    //this.setState({ team: teamPicked.teamName, backgroundColor: teamPicked.color, idteam: teamPicked.id });
+    // this.setState({ team: teamPicked.teamName, backgroundColor: teamPicked.color, idteam: teamPicked.id });
 
 
     // this.getPlayer();
@@ -247,15 +275,21 @@ class App extends React.Component {
     // const goalKeeperN = goalKeeperList.web_name;
 
     // this.setState({goalKeeperName: goalKeeper.web_name});
+   
     const displayUse = this.state.display;
+   
     console.log(displayUse.charAt(displayUse.length-1));
-    this.setState({ team: teamPicked.teamName,
+    this.setState({ 
+      team: teamPicked.teamName,
                     backgroundColor: teamPicked.color,
                     idteam: teamPicked.id,
                     playersName:[goalKeeperList[0]?goalKeeperList[0].web_name:'',
-                    defenderList[0]?defenderList[0].web_name:'', defenderList[1]?defenderList[1].web_name:'', defenderList[2]?defenderList[2].web_name:'', 'Def4',
+                    defenderList[0]?defenderList[0].web_name:'',
+                    defenderList[1]?defenderList[1].web_name:'', 
+                    defenderList[2]?defenderList[2].web_name:'',
+                     'Def4',
                     'Mid1', 'Mid2', 'Mid3','for1',
-                    // forwardList[2] && displayUse.charAt(displayUse.length-1)===3 ?forwardList[2].web_name:midfielderList && displayUse.charAt(0)===5?(displayUse.charAt(displayUse.length-1)===2?midfielderList[2]:midfielderList[3]):displayUse.charAt(0)===4?midfielderList[3]:midfielderList[4],
+                    // forwardList[2] && displayUse.charAt(displayUse.length-1)===3 ?forwardList[2].web_name:(midfielderList && displayUse.charAt(0)===5?(displayUse.charAt(displayUse.length-1)===2?midfielderList[2]:midfielderList[3]):(displayUse.charAt(0)===4?midfielderList[3]:midfielderList[4])),
                     forwardList[1] && displayUse.charAt(displayUse.length-1)>=2 ?forwardList[1].web_name:midfielderList && displayUse.charAt(0)===5?midfielderList[3].web_name:midfielderList[4], 
                     forwardList[0]?forwardList[0].web_name:''],
                   goalKeeperName: goalKeeperList[0]?goalKeeperList[0].web_name:'',
@@ -306,7 +340,7 @@ class App extends React.Component {
 
   render() {
     console.log('this.state',this.state);
-    const { displayFormation, backgroundColor, playersName, goalKeeperName, player1Name, player2Name,player3Name, player4Name } = this.state;
+    const { displayFormation, backgroundColor, playersName, goalKeeperName, player1Name, player2Name,player3Name, player4Name,disabled } = this.state;
     // console.log(getPlayer(120))
     //  const db = this.doCORSRequest;
     //  console.log("coucou",db);
@@ -322,7 +356,7 @@ class App extends React.Component {
       <>
         <Navbar />
         {/* <SelectTeam listTeams={listTeams} changeColor={this.changeColor} disabled={this.state.data.elements?true:false}/> */}
-        <SelectTeam listTeams={listTeams} setTeam={this.setTeam}/>
+        <SelectTeam listTeams={listTeams} setTeam={this.setTeam} disabled={this.state.data.elements?false:true}/>
         <br />
         <SelectDisplay formation={formation} changeDisplay={this.changeDisplay} />
         {/* <div id='container'>
