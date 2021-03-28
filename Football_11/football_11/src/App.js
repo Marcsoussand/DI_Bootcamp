@@ -49,7 +49,7 @@ class App extends React.Component {
         'Def1', 'Def2', 'Azpilicueta', 'Def4',
         'Mid1', 'Mid2', 'Mid3',
         'For1', 'For2', 'For3'],
-        goalKeeperName:'',
+        goalKeeperName:'Goal',
       display: '4-3-3',
       displayFormation: ['line4-1 player defender',
         'line4-2 player defender', 'line4-3 player defender',
@@ -68,9 +68,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://cors-anywhere.herokuapp.com/https://fantasy.premierleague.com/api/bootstrap-static/',{
+    // fetch('https://cors-anywhere.herokuapp.com/https://fantasy.premierleague.com/api/bootstrap-static/',{
+      fetch('https://fantasy.premierleague.com/api/bootstrap-static/',{
       method:"GET",
-      mode: "cors", // no-cors, *cors, same-origin
+      // mode: "cors", // no-cors, *cors, same-origin
       // headers:{
       //   "Access-Control-Allow-Origin": "*",
       //   'Access-Control-Allow-Headers': "*"
