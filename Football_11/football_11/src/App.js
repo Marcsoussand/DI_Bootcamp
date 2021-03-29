@@ -7,8 +7,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import SelectDisplay from './components/SelectDisplay';
 import PlayersOnField from './components/PlayersonField';
-import dataInit from './Elements';
-
+import PlayersOnBench from './components/PlayersonBench';
 
 const listTeams = [
   { id: 1, teamName: "Arsenal", color: "#EB302E" },
@@ -42,24 +41,14 @@ class App extends React.Component {
     super(props);
     this.state = {
       backgroundColor: 'blue',
-      team: '',
-      idteam: '',
+      team: 'Arsenal',
+      idteam: '1',
       data: {},
       playersName: ['Goal',
-        'Def1', 'Def2', 'Azpilicueta', 'Def4',
+        'Def1', 'Def2', 'Def3', 'Def4',
         'Mid1', 'Mid2', 'Mid3',
         'For1', 'For2', 'For3'],
-        goalKeeperName:'Goal',
-        player1Name:'Def1',
-        player2Name:'Def2',
-        player3Name:'Def3',
-        player4Name:'Def4',
-        player5Name:'Mid1',
-        player6Name:'Mid2',
-        player7Name:'Mid3',
-        player8Name:'For1',
-        player9Name:'For2',
-        player10Name:'For3',
+        benchName: [],
       display: '4-3-3',
       displayFormation: ['line4-1 player defender',
         'line4-2 player defender', 'line4-3 player defender',
@@ -70,9 +59,6 @@ class App extends React.Component {
         'line3-1 player forward',
         'line3-2 player forward',
         'line3-3 player forward'],
-        defenders:4,
-        midfielders:3,
-        forward:3,
         disabled:false
 
 
@@ -117,9 +103,6 @@ class App extends React.Component {
             'line3-1 player forward',
             'line3-2 player forward',
             'line3-3 player forward'],
-            defenders:4,
-            midfielders:3,
-            forward:4
         })
         break;
       case '4-2-3-1':
@@ -134,9 +117,7 @@ class App extends React.Component {
             'line3-2 player offmidfielder',
             'line3-3 player offmidfielder',
             'line1-1 player forward'],
-            defenders:4,
-            midfielders:5,
-            forward:1
+
         })
         break;
       case '4-3-2-1':
@@ -151,9 +132,6 @@ class App extends React.Component {
             'line2-1 player offmidfielder',
             'line2-2 player offmidfielder',
             'line1-1 player forward'],
-            defenders:4,
-            midfielders:5,
-            forward:1
         })
         break;
       case '4-4-2':
@@ -168,9 +146,7 @@ class App extends React.Component {
             'line4-4 player midfielder',
             'line2-1 player forward',
             'line2-2 player forward'],
-            defenders:4,
-            midfielders:4,
-            forward:2
+   
         })
         break;
       case '5-4-1':
@@ -185,9 +161,6 @@ class App extends React.Component {
             'line4-3 player midfielder',
             'line4-4 player midfielder',
             'line1-1 player forward'],
-            defenders:5,
-            midfielders:4,
-            forward:1
         })
         break;
       case '5-3-2':
@@ -202,9 +175,7 @@ class App extends React.Component {
             'line3-3 player midfielder',
             'line2-1 player forward',
             'line2-2 player forward'],
-            defenders:5,
-            midfielders:3,
-            forward:2
+
         })
         break;
       case '3-5-2':
@@ -219,9 +190,7 @@ class App extends React.Component {
             'line5-5 player midfielder',
             'line2-1 player forward',
             'line2-2 player forward'],
-            defenders:3,
-            midfielders:5,
-            forward:2
+
         })
         break;
         case '3-4-3':
@@ -236,30 +205,30 @@ class App extends React.Component {
               'line3-1 player forward',
               'line3-2 player forward',
               'line3-3 player forward'],
-              defenders:3,
-              midfielders:4,
-              forward:3
           })
           break;
       default:
         break;
     }
+    this.getPlayers();
 
 
   }
 
-  setTeam = (e) => {
+  setTeam = async (e) => {
     const teamPicked = [...listTeams].find(t => t.teamName === e.target.value);
     console.log('teamPicked',teamPicked);
 
-    // this.setState({ team: teamPicked.teamName, backgroundColor: teamPicked.color, idteam: teamPicked.id });
+    await this.setState({ team: teamPicked.teamName, backgroundColor: teamPicked.color, idteam: teamPicked.id });
 
 
-    // this.getPlayer();
-// if(this.state.data.elements){
+    this.getPlayers();}
+
+
+    getPlayers = ()=> {
     // Filter through list of all players to get the players of the team who are not injured
-    // const playersTeam = this.state.data.elements.filter(t => t.team === this.state.idteam && t.chance_of_playing_this_round === 100);
-    const playersTeam = this.state.data.elements.filter(t => t.team === this.state.idteam);
+    // const playersTeam = this.state.data.elements.filter(t => t.team === this.state.idteam && t.chance_of_playing_this_round === 100 && t.status === 'a');
+    const playersTeam = this.state.data.elements.filter(t => t.team === this.state.idteam );
      // // // Get only the best goalkeeper
     const goalKeeperList = playersTeam.filter(t => t.element_type === 1);
     goalKeeperList.sort(function(a,b) { return parseFloat(b.now_cost) - parseFloat(a.now_cost) } );
@@ -276,78 +245,149 @@ class App extends React.Component {
 
     // this.setState({goalKeeperName: goalKeeper.web_name});
    
-    const displayUse = this.state.display;
-   
-    console.log(displayUse.charAt(displayUse.length-1));
-    this.setState({ 
-      team: teamPicked.teamName,
-                    backgroundColor: teamPicked.color,
-                    idteam: teamPicked.id,
-                    playersName:[goalKeeperList[0]?goalKeeperList[0].web_name:'',
-                    defenderList[0]?defenderList[0].web_name:'',
-                    defenderList[1]?defenderList[1].web_name:'', 
-                    defenderList[2]?defenderList[2].web_name:'',
-                     'Def4',
-                    'Mid1', 'Mid2', 'Mid3','for1',
-                    // forwardList[2] && displayUse.charAt(displayUse.length-1)===3 ?forwardList[2].web_name:(midfielderList && displayUse.charAt(0)===5?(displayUse.charAt(displayUse.length-1)===2?midfielderList[2]:midfielderList[3]):(displayUse.charAt(0)===4?midfielderList[3]:midfielderList[4])),
-                    forwardList[1] && displayUse.charAt(displayUse.length-1)>=2 ?forwardList[1].web_name:midfielderList && displayUse.charAt(0)===5?midfielderList[3].web_name:midfielderList[4], 
-                    forwardList[0]?forwardList[0].web_name:''],
-                  goalKeeperName: goalKeeperList[0]?goalKeeperList[0].web_name:'',
-                  player1Name: defenderList[0]?defenderList[0].web_name:'',
-                  player2Name: defenderList[1]?defenderList[1].web_name:'',
-                  player3Name: defenderList[2]?defenderList[2].web_name:'',
-                  player4Name: defenderList[3] && this.state.display.charAt(0)>=4 ? defenderList[3].web_name:midfielderList[0]?midfielderList[0].web_name:'',
-                  player5Name: defenderList[4] && this.state.display.charAt(0)>=5 
-    });
+
+ const displayUse = this.state.display;
+ var playersTemp = [];
+ switch (displayUse) {
+   case '4-3-3':
+     playersTemp = [goalKeeperList[0]?[goalKeeperList[0].web_name,goalKeeperList[0].element_type]:'',
+     defenderList[0]?[defenderList[0].web_name,defenderList[0].element_type]:'',
+     defenderList[1]?[defenderList[1].web_name,defenderList[1].element_type]:'', 
+     defenderList[2]?defenderList[2].web_name:'',
+     defenderList[3]?defenderList[3].web_name:'',
+     midfielderList[0]?midfielderList[0].web_name:'',
+     midfielderList[1]?midfielderList[1].web_name:'',
+     midfielderList[2]?midfielderList[2].web_name:'',
+     forwardList[0]?forwardList[0].web_name:'',
+     forwardList[1]?forwardList[1].web_name:'',
+     forwardList[2]?forwardList[2].web_name:'',
+
+    ];
+     break;
+     case '4-3-2-1':
+     playersTemp = [goalKeeperList[0]?goalKeeperList[0].web_name:'',
+     defenderList[0]?defenderList[0].web_name:'',
+     defenderList[1]?defenderList[1].web_name:'', 
+     defenderList[2]?defenderList[2].web_name:'',
+     defenderList[3]?defenderList[3].web_name:'',
+     midfielderList[0]?midfielderList[0].web_name:'',
+     midfielderList[1]?midfielderList[1].web_name:'',
+     midfielderList[2]?midfielderList[2].web_name:'',
+     midfielderList[3]?midfielderList[3].web_name:'',
+     midfielderList[4]?midfielderList[4].web_name:'',
+     forwardList[0]?forwardList[0].web_name:'',
+
+    ];
+     break;
+     case '4-2-3-1':
+     playersTemp = [goalKeeperList[0]?goalKeeperList[0].web_name:'',
+     defenderList[0]?defenderList[0].web_name:'',
+     defenderList[1]?defenderList[1].web_name:'', 
+     defenderList[2]?defenderList[2].web_name:'',
+     defenderList[3]?defenderList[3].web_name:'',
+     midfielderList[0]?midfielderList[0].web_name:'',
+     midfielderList[1]?midfielderList[1].web_name:'',
+     midfielderList[2]?midfielderList[2].web_name:'',
+     midfielderList[3]?midfielderList[3].web_name:'',
+     midfielderList[4]?midfielderList[4].web_name:'',
+     forwardList[0]?forwardList[0].web_name:'',
+
+    ];
+     break;
+     case '4-4-2':
+     playersTemp = [goalKeeperList[0]?goalKeeperList[0].web_name:'',
+     defenderList[0]?defenderList[0].web_name:'',
+     defenderList[1]?defenderList[1].web_name:'', 
+     defenderList[2]?defenderList[2].web_name:'',
+     defenderList[3]?defenderList[3].web_name:'',
+     midfielderList[0]?midfielderList[0].web_name:'',
+     midfielderList[1]?midfielderList[1].web_name:'',
+     midfielderList[2]?midfielderList[2].web_name:'',
+     midfielderList[3]?midfielderList[3].web_name:'',
+     forwardList[0]?forwardList[0].web_name:'',
+     forwardList[1]?forwardList[1].web_name:'',
+    ];
+     break;
+     case '5-4-1':
+      playersTemp = [goalKeeperList[0]?goalKeeperList[0].web_name:'',
+     defenderList[0]?defenderList[0].web_name:'',
+     defenderList[1]?defenderList[1].web_name:'', 
+     defenderList[2]?defenderList[2].web_name:'',
+     defenderList[3]?defenderList[3].web_name:'',
+     defenderList[4]?defenderList[4].web_name:'',
+     midfielderList[0]?midfielderList[0].web_name:'',
+     midfielderList[1]?midfielderList[1].web_name:'',
+     midfielderList[2]?midfielderList[2].web_name:'',
+     midfielderList[3]?midfielderList[3].web_name:'',
+     forwardList[0]?forwardList[0].web_name:'',
+     ];
+      break;
+      case '5-3-2':
+        playersTemp = [goalKeeperList[0]?goalKeeperList[0].web_name:'',
+       defenderList[0]?defenderList[0].web_name:'',
+       defenderList[1]?defenderList[1].web_name:'', 
+       defenderList[2]?defenderList[2].web_name:'',
+       defenderList[3]?defenderList[3].web_name:'',
+       defenderList[4]?defenderList[4].web_name:'',
+       midfielderList[0]?midfielderList[0].web_name:'',
+       midfielderList[1]?midfielderList[1].web_name:'',
+       midfielderList[2]?midfielderList[2].web_name:'',
+       forwardList[0]?forwardList[0].web_name:'',
+       forwardList[1]?forwardList[1].web_name:'',
+       ];
+        break;
+        case '3-4-3':
+          playersTemp = [goalKeeperList[0]?goalKeeperList[0].web_name:'',
+          defenderList[0]?defenderList[0].web_name:'',
+          defenderList[1]?defenderList[1].web_name:'', 
+          defenderList[2]?defenderList[2].web_name:'',
+          midfielderList[0]?midfielderList[0].web_name:'',
+          midfielderList[1]?midfielderList[1].web_name:'',
+          midfielderList[2]?midfielderList[2].web_name:'',
+          midfielderList[3]?midfielderList[3].web_name:'',
+          forwardList[0]?forwardList[0].web_name:'',
+          forwardList[1]?forwardList[1].web_name:'',
+          forwardList[2]?forwardList[2].web_name:'',
+     
+         ];
+          break;
+          case '3-5-2':
+          playersTemp = [goalKeeperList[0]?goalKeeperList[0].web_name:'',
+          defenderList[0]?defenderList[0].web_name:'',
+          defenderList[1]?defenderList[1].web_name:'', 
+          defenderList[2]?defenderList[2].web_name:'',
+          midfielderList[0]?midfielderList[0].web_name:'',
+          midfielderList[1]?midfielderList[1].web_name:'',
+          midfielderList[2]?midfielderList[2].web_name:'',
+          midfielderList[3]?midfielderList[3].web_name:'',
+          midfielderList[4]?midfielderList[4].web_name:'',
+          forwardList[0]?forwardList[0].web_name:'',
+          forwardList[1]?forwardList[1].web_name:'',
+     
+         ];
+          break;
+   default:
+     break;
+ }
 
     
-     
+
+    const bench = playersTeam.filter(t => !playersTemp.includes(t.web_name))
+    var benchnames = [];
+    for (var i=0;i<bench.length;i++) {
+      benchnames.push(bench[i]?bench[i].web_name:'');
+    }
+    this.setState({playersName:playersTemp,benchName:benchnames});
 
   }
 
 
 
-  //  getPlayer = () => {
-  //    const playersTeam = this.state.data.elements.filter(t => t.team === idteam1 && t.chance_of_playing_this_round === 100 );
-  //  const goalKeeperList = playersTeam.filter(t => t.element_type === 1);
-  //  const goalKeeper1 = Math.max(...goalKeeperList.map(o => o.now_cost), 0);
-  //  const goalKeeper = goalKeeperList.find(t => t.now_cost === goalKeeper1);
-  //  const goalKeeperName1 = goalKeeper[0];
-  //  console.log("players",playersTeam);
-  //  console.log(goalKeeper);
-  //  }
-
-
-  // const playersTeam = await this.state.data.elements.filter(t => t.team === this.state.idteam && t.chance_of_playing_this_round === '100');
-  // const goalKeeperList = await playersTeam.filter(t => t.element_type === 1);
-  // const goalKeeper1 = Math.max(...goalKeeperList.map(o => o.now_cost), 0);
-  // const goalKeeper = await goalKeeperList.find(t => t.now_cost === goalKeeper1)
-
-  // this.setState({goalKeeperName: goalKeeper.web_name})
-
-
-  // .then(res => res.json())
-  // .then(json => this.setState({ data: json }))
-
-  // .then(json => json.elements.filter(t => t.team == this.state.idteam && t.chance_of_playing_this_round == '100')
-  // .then(play2 => play2.filter(t => t.element_type == 1)
-  // .then(play3 => Math.max(...play2.map(o => o.now_cost), 0)
-  // .then(play4 => play2.find(t => t.now_cost == play3)
-  // .then(play5 => console.log(play4))
-  // }
-  // catch (e){console.log("error");}
-
 
   render() {
     console.log('this.state',this.state);
-    const { displayFormation, backgroundColor, playersName, goalKeeperName, player1Name, player2Name,player3Name, player4Name,disabled } = this.state;
-    // console.log(getPlayer(120))
-    //  const db = this.doCORSRequest;
-    //  console.log("coucou",db);
-    // console.log(data);
+    const { displayFormation, backgroundColor, playersName, benchName } = this.state;
 
-
-    // players = this.getPlayer;
 
 
 
@@ -355,19 +395,18 @@ class App extends React.Component {
     return (
       <>
         <Navbar />
-        {/* <SelectTeam listTeams={listTeams} changeColor={this.changeColor} disabled={this.state.data.elements?true:false}/> */}
         <SelectTeam listTeams={listTeams} setTeam={this.setTeam} disabled={this.state.data.elements?false:true}/>
         <br />
         <SelectDisplay formation={formation} changeDisplay={this.changeDisplay} />
-        {/* <div id='container'>
-          <PlayersOnField id='playersOnField1' playersName={playersName}/> */}
+        <div id='container'>
+          <PlayersOnField id='playersOnField1' playersName={playersName}/>
         <div id='field'>
 
-          <div id='goal' className='player'><i id='player goalKeeper' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='goalName'>{playersName[0]}</p></div>
-          <div className={displayFormation[0]}><i id='player2' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def1Name'>{playersName[1]}</p></div>
-          <div className={displayFormation[1]}><i id='player3' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def2Name'>{playersName[2]}</p></div>
-          <div className={displayFormation[2]}><i id='player4' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def3Name'>{player3Name}</p></div>
-          <div className={displayFormation[3]}><i id='player5' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def4Name'>{player4Name}</p></div>
+          <div id='goal' className='player'><i id='player goalKeeper' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='goalName'>{playersName[0][0]}</p></div>
+          <div className={displayFormation[0]}><i id='player2' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def1Name'>{playersName[1][0]}</p></div>
+          <div className={displayFormation[1]}><i id='player3' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def2Name'>{playersName[2][0]}</p></div>
+          <div className={displayFormation[2]}><i id='player4' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def3Name'>{playersName[3]}</p></div>
+          <div className={displayFormation[3]}><i id='player5' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def4Name'>{playersName[4]}</p></div>
           <div className={displayFormation[4]}><i id='player6' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid1Name'>{playersName[5]}</p></div>
           <div className={displayFormation[5]}><i id='player7' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid2Name'>{playersName[6]}</p></div>
           <div className={displayFormation[6]}><i id='player8' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid3Name'>{playersName[7]}</p></div>
@@ -376,7 +415,8 @@ class App extends React.Component {
           <div className={displayFormation[9]}><i id='player11' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for3Name'>{playersName[10]}</p></div>
 
         </div>
-        {/* </div> */}
+        <PlayersOnBench id='playersOnBench1' benchName={benchName}/>
+        </div>
         <Footer />
       </>
 

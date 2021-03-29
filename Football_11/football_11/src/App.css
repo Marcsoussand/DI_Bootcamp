@@ -10,9 +10,10 @@ body {
   
 }
 
-/* #container {
-  position: relative;
-} */
+#container {
+  display: grid;
+  grid-template-columns: 30% 40% 30%;
+}
 /* #playersOnField1 {
   float: left;
 } */
