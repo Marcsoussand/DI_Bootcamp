@@ -1,7 +1,5 @@
 import React from 'react';
 import './App.css';
-// import baseRequest from './requests/baseRequest';
-// import getDataBase from './requests/getDataBase';
 import SelectTeam from './components/SelectTeam';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -10,26 +8,26 @@ import PlayersOnField from './components/PlayersonField';
 import PlayersOnBench from './components/PlayersonBench';
 
 const listTeams = [
-  { id: 1, teamName: "Arsenal", color: "#EB302E" },
-  { id: 2, teamName: "Aston Villa", color: "#480025" },
-  { id: 3, teamName: "Brighton", color: "#0054A6" },
-  { id: 4, teamName: "Burnley", color: "#6A003A" },
-  { id: 5, teamName: "Chelsea", color: "#0A4595" },
-  { id: 6, teamName: "Crystal Palace", color: "#EB302E" },
-  { id: 7, teamName: "Everton", color: "00369C" },
-  { id: 8, teamName: "Fulham", color: "#F5F5F5" },
-  { id: 10, teamName: "Leeds", color: "#F5F5F5" },
-  { id: 9, teamName: "Leicester", color: "#273E8A" },
-  { id: 11, teamName: "Liverpool", color: "#E31B23" },
-  { id: 12, teamName: "Manchester City", color: "#6CAEE0" },
-  { id: 13, teamName: "Manchester United", color: "#D81920" },
-  { id: 14, teamName: "Newcastle", color: "#383838" },
-  { id: 15, teamName: "Sheffield United", color: "#ED1C24" },
-  { id: 16, teamName: "Southampton", color: "#D71920" },
-  { id: 17, teamName: "Tottenham", color: "#F5F5F5" },
-  { id: 18, teamName: "West Bromwich Albion", color: "#F5F5F5" },
-  { id: 19, teamName: "West Ham", color: "#7D2C3B" },
-  { id: 20, teamName: "Wolverhampton", color: "#F9A01B" }
+  { id: 1, teamName: "Arsenal", color: "#EB302E", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/arsenal.png" },
+  { id: 2, teamName: "Aston Villa", color: "#480025", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/astonvilla.png" },
+  { id: 3, teamName: "Brighton", color: "#0054A6", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/brighton.png" },
+  { id: 4, teamName: "Burnley", color: "#6A003A", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/burnley.png" },
+  { id: 5, teamName: "Chelsea", color: "#0A4595", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/chelsea.png" },
+  { id: 6, teamName: "Crystal Palace", color: "#EB302E", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/palace.png" },
+  { id: 7, teamName: "Everton", color: "00369C", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/everton.png" },
+  { id: 8, teamName: "Fulham", color: "#F5F5F5", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/fulham.png" },
+  { id: 10, teamName: "Leeds", color: "#F5F5F5", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/leeds.png" },
+  { id: 9, teamName: "Leicester", color: "#273E8A", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/leicester.png" },
+  { id: 11, teamName: "Liverpool", color: "#E31B23", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/liverpool.png" },
+  { id: 12, teamName: "Manchester City", color: "#6CAEE0", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/mancity.png" },
+  { id: 13, teamName: "Manchester United", color: "#D81920", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/manutd.png" },
+  { id: 14, teamName: "Newcastle", color: "#383838", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/newcastle.png" },
+  { id: 15, teamName: "Sheffield United", color: "#ED1C24", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/sheffield.png" },
+  { id: 16, teamName: "Southampton", color: "#D71920", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/southampton.png" },
+  { id: 17, teamName: "Tottenham", color: "#F5F5F5", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/spurs.png" },
+  { id: 18, teamName: "West Bromwich Albion", color: "#F5F5F5", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/westbrom.png" },
+  { id: 19, teamName: "West Ham", color: "#7D2C3B", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/westham.png" },
+  { id: 20, teamName: "Wolverhampton", color: "#F9A01B", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/wolves.png" }
 ];
 
 const formation = ["4-3-3", "4-3-2-1", "4-2-3-1", "4-4-2", "5-4-1", "5-3-2", "3-4-3", "3-5-2"];
@@ -40,9 +38,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      backgroundColor: 'blue',
+      backgroundColor: 'red',
       team: '',
       idteam: '',
+      badge:"https://www.fantasy-coach.fr/wp-content/uploads/2020/08/arsenal.png",
       data: {},
       playersName: ['Goal',
         'Def1', 'Def2', 'Def3', 'Def4',
@@ -60,6 +59,7 @@ class App extends React.Component {
         'line3-2 player forward',
         'line3-3 player forward'],
       disabled: false
+      
 
 
 
@@ -219,7 +219,7 @@ class App extends React.Component {
     const teamPicked = [...listTeams].find(t => t.teamName === e.target.value);
     console.log('teamPicked', teamPicked);
 
-    await this.setState({ team: teamPicked.teamName, backgroundColor: teamPicked.color, idteam: teamPicked.id });
+    await this.setState({ team: teamPicked.teamName, backgroundColor: teamPicked.color, idteam: teamPicked.id, badge:teamPicked.logo });
 
 
     this.getPlayers();
@@ -364,9 +364,9 @@ class App extends React.Component {
     bench.sort(function (a, b) { return parseFloat(a.element_type) - parseFloat(b.element_type) });
     var benchnames = [];
     for (var i = 0; i < bench.length; i++) {
-      benchnames.push(bench[i] ? [bench[i].web_name, bench[i].element_type]: '');
+      benchnames.push(bench[i] ? [bench[i].web_name, bench[i].element_type] : '');
     }
-    
+
     this.setState({ playersName: playersTemp, benchName: benchnames });
 
   }
@@ -376,7 +376,7 @@ class App extends React.Component {
 
   render() {
     console.log('this.state', this.state);
-    const { displayFormation, backgroundColor, playersName, benchName,team } = this.state;
+    const { displayFormation, backgroundColor, playersName, benchName, team, badge } = this.state;
 
 
 
@@ -385,27 +385,35 @@ class App extends React.Component {
     return (
       <>
         <Navbar />
-        <SelectTeam listTeams={listTeams} setTeam={this.setTeam} disabled={this.state.data.elements ? false : true} />
+        
+        
+        <div id='container'>
+          <div id='leftSide'>
+          <SelectTeam listTeams={listTeams} setTeam={this.setTeam} disabled={this.state.data.elements ? false : true} />
         <br />
         <SelectDisplay formation={formation} changeDisplay={this.changeDisplay} />
-        <div id='container'>
-          <PlayersOnField  playersName={playersName} team={team} />
-          <div id='field'>
-
-            <div id='goal' className='player'><i id='player goalKeeper' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='goalName'>{playersName[0][0]}</p></div>
-            <div className={displayFormation[0]}><i id='player2' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def1Name'>{playersName[1][0]}</p></div>
-            <div className={displayFormation[1]}><i id='player3' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def2Name'>{playersName[2][0]}</p></div>
-            <div className={displayFormation[2]}><i id='player4' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def3Name'>{playersName[3][0]}</p></div>
-            <div className={displayFormation[3]}><i id='player5' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def4Name'>{playersName[4][0]}</p></div>
-            <div className={displayFormation[4]}><i id='player6' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid1Name'>{playersName[5][0]}</p></div>
-            <div className={displayFormation[5]}><i id='player7' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid2Name'>{playersName[6][0]}</p></div>
-            <div className={displayFormation[6]}><i id='player8' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid3Name'>{playersName[7][0]}</p></div>
-            <div className={displayFormation[7]}><i id='player9' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for1Name'>{playersName[8][0]}</p></div>
-            <div className={displayFormation[8]}><i id='player10' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for2Name'>{playersName[9][0]}</p></div>
-            <div className={displayFormation[9]}><i id='player11' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for3Name'>{playersName[10][0]}</p></div>
-
+          <PlayersOnField playersName={playersName} team={team} />
           </div>
+          <div id='field'>
+          
+            <div id='goal' className='player'><i id='player goalKeeper' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='goalName'>{playersName[0][0]}</p></div>
+            <div className={displayFormation[0]}><i id='player2' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def1Name'>{playersName[1][0]}</p></div>
+            <div className={displayFormation[1]}><i id='player3' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def2Name'>{playersName[2][0]}</p></div>
+            <div className={displayFormation[2]}><i id='player4' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def3Name'>{playersName[3][0]}</p></div>
+            <div className={displayFormation[3]}><i id='player5' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p  className='playerDisplay'id='def4Name'>{playersName[4][0]}</p></div>
+            <div className={displayFormation[4]}><i id='player6' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p  className='playerDisplay'id='mid1Name'>{playersName[5][0]}</p></div>
+            <div className={displayFormation[5]}><i id='player7' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p  className='playerDisplay'id='mid2Name'>{playersName[6][0]}</p></div>
+            <div className={displayFormation[6]}><i id='player8' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p  className='playerDisplay'id='mid3Name'>{playersName[7][0]}</p></div>
+            <div className={displayFormation[7]}><i id='player9' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p  className='playerDisplay'id='for1Name'>{playersName[8][0]}</p></div>
+            <div className={displayFormation[8]}><i id='player10' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='for2Name'>{playersName[9][0]}</p></div>
+            <div className={displayFormation[9]}><i id='player11' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='for3Name'>{playersName[10][0]}</p></div>
+            <img id='badgeDisplay' src={badge} alt='badge'></img>
+          </div>
+          <div id='rightSide'>
+         
           <PlayersOnBench id='playersOnBench1' benchName={benchName} />
+          <button id='saveButton'>Save your team</button>
+          </div>
         </div>
         <Footer />
       </>

@@ -6,9 +6,9 @@ const PlayersOnBench = (props) => {
     var position = '';
 
     return (
-        <>
-    
-        <ul> Other Players Available
+        
+    <div> Other Players Available
+        <ul id='bench'> 
             {benchName.map((item,i) => {
                   switch (item[1]) {
                     case 1:
@@ -29,7 +29,8 @@ const PlayersOnBench = (props) => {
     
                 return <li key={i}>{position} {item[0]}</li>})}
         </ul>
-        </>
+        </div>
+        
     )
     
 }
