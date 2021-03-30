@@ -27,7 +27,7 @@ const PlayersOnBench = (props) => {
                         break;
                 };
     
-                return <li key={i}>{item[0]}</li>})}
+                return <li key={i}>{position} {item[0]}</li>})}
         </ul>
         </>
     )

@@ -7,7 +7,8 @@ const PlayersOnField = (props) => {
     return (
         <>
 
-            <ul>
+            <ul id='playersOnField1'>
+                Players 
                 {playersName.map((item, i) => {
                     switch (item[1]) {
                         case 1:
@@ -27,7 +28,7 @@ const PlayersOnField = (props) => {
                     };
 
 
-                    return <li key={i}>{item[0]} {position} </li>
+                    return <li key={i}>{position} {item[0]}  </li>
                 })}
             </ul>
         </>

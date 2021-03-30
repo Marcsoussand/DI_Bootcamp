@@ -13,12 +13,16 @@ body {
 #container {
   display: grid;
   grid-template-columns: 30% 40% 30%;
+  grid-template-rows: 100%;
 }
-/* #playersOnField1 {
-  float: left;
-} */
+#playersOnField1 {
+  margin: 20px auto;
+  height: fit-content;
+  border: 1px white solid;
+  border-radius: 10px;
+  list-style-type: none;
+}
 #field {
-  /* position: absolute; */
   width: 400px;
   height: 605px;
   border: 1px solid black;
@@ -26,7 +30,7 @@ body {
   display: grid;
   grid-template-columns: repeat(10,10%);
   grid-template-rows: repeat(2,20%) repeat(3,8%) repeat(2,18%);
-  margin: auto;
+  margin: 0 auto;
 
 }
 

@@ -41,14 +41,14 @@ class App extends React.Component {
     super(props);
     this.state = {
       backgroundColor: 'blue',
-      team: 'Arsenal',
-      idteam: '1',
+      team: '',
+      idteam: '',
       data: {},
       playersName: ['Goal',
         'Def1', 'Def2', 'Def3', 'Def4',
         'Mid1', 'Mid2', 'Mid3',
         'For1', 'For2', 'For3'],
-        benchName: [],
+      benchName: [],
       display: '4-3-3',
       displayFormation: ['line4-1 player defender',
         'line4-2 player defender', 'line4-3 player defender',
@@ -59,7 +59,7 @@ class App extends React.Component {
         'line3-1 player forward',
         'line3-2 player forward',
         'line3-3 player forward'],
-        disabled:false
+      disabled: false
 
 
 
@@ -69,8 +69,8 @@ class App extends React.Component {
 
   componentDidMount() {
     // fetch('https://cors-anywhere.herokuapp.com/https://fantasy.premierleague.com/api/bootstrap-static/',{
-      fetch('https://fantasy.premierleague.com/api/bootstrap-static/',{
-      method:"GET",
+    fetch('https://fantasy.premierleague.com/api/bootstrap-static/', {
+      method: "GET",
       // mode: "cors", // no-cors, *cors, same-origin
       // headers:{
       //   "Access-Control-Allow-Origin": "*",
@@ -146,7 +146,7 @@ class App extends React.Component {
             'line4-4 player midfielder',
             'line2-1 player forward',
             'line2-2 player forward'],
-   
+
         })
         break;
       case '5-4-1':
@@ -193,20 +193,20 @@ class App extends React.Component {
 
         })
         break;
-        case '3-4-3':
-          this.setState({
-            displayFormation: ['line3-1 player defender',
-              'line3-2 player defender',
-              'line3-3 player defender',
-              'line4-1 player midfielder',
-              'line4-2 player midfielder',
-              'line4-3 player midfielder',
-              'line4-4 player midfielder',
-              'line3-1 player forward',
-              'line3-2 player forward',
-              'line3-3 player forward'],
-          })
-          break;
+      case '3-4-3':
+        this.setState({
+          displayFormation: ['line3-1 player defender',
+            'line3-2 player defender',
+            'line3-3 player defender',
+            'line4-1 player midfielder',
+            'line4-2 player midfielder',
+            'line4-3 player midfielder',
+            'line4-4 player midfielder',
+            'line3-1 player forward',
+            'line3-2 player forward',
+            'line3-3 player forward'],
+        })
+        break;
       default:
         break;
     }
@@ -217,167 +217,157 @@ class App extends React.Component {
 
   setTeam = async (e) => {
     const teamPicked = [...listTeams].find(t => t.teamName === e.target.value);
-    console.log('teamPicked',teamPicked);
+    console.log('teamPicked', teamPicked);
 
     await this.setState({ team: teamPicked.teamName, backgroundColor: teamPicked.color, idteam: teamPicked.id });
 
 
-    this.getPlayers();}
+    this.getPlayers();
+  }
 
 
-    getPlayers = ()=> {
+  getPlayers = () => {
     // Filter through list of all players to get the players of the team who are not injured
     // const playersTeam = this.state.data.elements.filter(t => t.team === this.state.idteam && t.chance_of_playing_this_round === 100 && t.status === 'a');
-    const playersTeam = this.state.data.elements.filter(t => t.team === this.state.idteam );
-     // // // Get only the best goalkeeper
+    const playersTeam = this.state.data.elements.filter(t => t.team === this.state.idteam);
+    // // // Get only the best goalkeeper
     const goalKeeperList = playersTeam.filter(t => t.element_type === 1);
-    goalKeeperList.sort(function(a,b) { return parseFloat(b.now_cost) - parseFloat(a.now_cost) } );
+    goalKeeperList.sort(function (a, b) { return parseFloat(b.now_cost) - parseFloat(a.now_cost) });
     const defenderList = playersTeam.filter(t => t.element_type === 2);
-    defenderList.sort(function(a,b) { return parseFloat(b.now_cost) - parseFloat(a.now_cost) } );
+    defenderList.sort(function (a, b) { return parseFloat(b.now_cost) - parseFloat(a.now_cost) });
     const midfielderList = playersTeam.filter(t => t.element_type === 3);
-    midfielderList.sort(function(a,b) { return parseFloat(b.now_cost) - parseFloat(a.now_cost) } );
+    midfielderList.sort(function (a, b) { return parseFloat(b.now_cost) - parseFloat(a.now_cost) });
     const forwardList = playersTeam.filter(t => t.element_type === 4);
-    forwardList.sort(function(a,b) { return parseFloat(b.now_cost) - parseFloat(a.now_cost) } );
+    forwardList.sort(function (a, b) { return parseFloat(b.now_cost) - parseFloat(a.now_cost) });
     // const goalKeeperValue = Math.max(...goalKeeperList.map(o => o.now_cost), 0);
     // const goalKeeper = goalKeeperList.find(t => t.now_cost === goalKeeperValue);
     console.log("players", playersTeam);
     // const goalKeeperN = goalKeeperList.web_name;
 
     // this.setState({goalKeeperName: goalKeeper.web_name});
-   
 
- const displayUse = this.state.display;
- var playersTemp = [];
- switch (displayUse) {
-   case '4-3-3':
-     playersTemp = [goalKeeperList[0]?[goalKeeperList[0].web_name,goalKeeperList[0].element_type]:'',
-     defenderList[0]?[defenderList[0].web_name,defenderList[0].element_type]:'',
-     defenderList[1]?[defenderList[1].web_name,defenderList[1].element_type]:'', 
-     defenderList[2]?defenderList[2].web_name:'',
-     defenderList[3]?defenderList[3].web_name:'',
-     midfielderList[0]?midfielderList[0].web_name:'',
-     midfielderList[1]?midfielderList[1].web_name:'',
-     midfielderList[2]?midfielderList[2].web_name:'',
-     forwardList[0]?forwardList[0].web_name:'',
-     forwardList[1]?forwardList[1].web_name:'',
-     forwardList[2]?forwardList[2].web_name:'',
 
-    ];
-     break;
-     case '4-3-2-1':
-     playersTemp = [goalKeeperList[0]?goalKeeperList[0].web_name:'',
-     defenderList[0]?defenderList[0].web_name:'',
-     defenderList[1]?defenderList[1].web_name:'', 
-     defenderList[2]?defenderList[2].web_name:'',
-     defenderList[3]?defenderList[3].web_name:'',
-     midfielderList[0]?midfielderList[0].web_name:'',
-     midfielderList[1]?midfielderList[1].web_name:'',
-     midfielderList[2]?midfielderList[2].web_name:'',
-     midfielderList[3]?midfielderList[3].web_name:'',
-     midfielderList[4]?midfielderList[4].web_name:'',
-     forwardList[0]?forwardList[0].web_name:'',
-
-    ];
-     break;
-     case '4-2-3-1':
-     playersTemp = [goalKeeperList[0]?goalKeeperList[0].web_name:'',
-     defenderList[0]?defenderList[0].web_name:'',
-     defenderList[1]?defenderList[1].web_name:'', 
-     defenderList[2]?defenderList[2].web_name:'',
-     defenderList[3]?defenderList[3].web_name:'',
-     midfielderList[0]?midfielderList[0].web_name:'',
-     midfielderList[1]?midfielderList[1].web_name:'',
-     midfielderList[2]?midfielderList[2].web_name:'',
-     midfielderList[3]?midfielderList[3].web_name:'',
-     midfielderList[4]?midfielderList[4].web_name:'',
-     forwardList[0]?forwardList[0].web_name:'',
-
-    ];
-     break;
-     case '4-4-2':
-     playersTemp = [goalKeeperList[0]?goalKeeperList[0].web_name:'',
-     defenderList[0]?defenderList[0].web_name:'',
-     defenderList[1]?defenderList[1].web_name:'', 
-     defenderList[2]?defenderList[2].web_name:'',
-     defenderList[3]?defenderList[3].web_name:'',
-     midfielderList[0]?midfielderList[0].web_name:'',
-     midfielderList[1]?midfielderList[1].web_name:'',
-     midfielderList[2]?midfielderList[2].web_name:'',
-     midfielderList[3]?midfielderList[3].web_name:'',
-     forwardList[0]?forwardList[0].web_name:'',
-     forwardList[1]?forwardList[1].web_name:'',
-    ];
-     break;
-     case '5-4-1':
-      playersTemp = [goalKeeperList[0]?goalKeeperList[0].web_name:'',
-     defenderList[0]?defenderList[0].web_name:'',
-     defenderList[1]?defenderList[1].web_name:'', 
-     defenderList[2]?defenderList[2].web_name:'',
-     defenderList[3]?defenderList[3].web_name:'',
-     defenderList[4]?defenderList[4].web_name:'',
-     midfielderList[0]?midfielderList[0].web_name:'',
-     midfielderList[1]?midfielderList[1].web_name:'',
-     midfielderList[2]?midfielderList[2].web_name:'',
-     midfielderList[3]?midfielderList[3].web_name:'',
-     forwardList[0]?forwardList[0].web_name:'',
-     ];
-      break;
-      case '5-3-2':
-        playersTemp = [goalKeeperList[0]?goalKeeperList[0].web_name:'',
-       defenderList[0]?defenderList[0].web_name:'',
-       defenderList[1]?defenderList[1].web_name:'', 
-       defenderList[2]?defenderList[2].web_name:'',
-       defenderList[3]?defenderList[3].web_name:'',
-       defenderList[4]?defenderList[4].web_name:'',
-       midfielderList[0]?midfielderList[0].web_name:'',
-       midfielderList[1]?midfielderList[1].web_name:'',
-       midfielderList[2]?midfielderList[2].web_name:'',
-       forwardList[0]?forwardList[0].web_name:'',
-       forwardList[1]?forwardList[1].web_name:'',
-       ];
+    const displayUse = this.state.display;
+    var playersTemp = [];
+    switch (displayUse) {
+      case '4-3-3':
+        playersTemp = [goalKeeperList[0] ? [goalKeeperList[0].web_name, goalKeeperList[0].element_type] : '',
+        defenderList[0] ? [defenderList[0].web_name, defenderList[0].element_type] : '',
+        defenderList[1] ? [defenderList[1].web_name, defenderList[1].element_type] : '',
+        defenderList[2] ? [defenderList[2].web_name, defenderList[2].element_type] : '',
+        defenderList[3] ? [defenderList[3].web_name, defenderList[3].element_type] : '',
+        midfielderList[0] ? [midfielderList[0].web_name, midfielderList[0].element_type] : '',
+        midfielderList[1] ? [midfielderList[1].web_name, midfielderList[1].element_type] : '',
+        midfielderList[2] ? [midfielderList[2].web_name, midfielderList[2].element_type] : '',
+        forwardList[0] ? [forwardList[0].web_name, forwardList[0].element_type] : '',
+        forwardList[1] ? [forwardList[1].web_name, forwardList[0].element_type] : '',
+        forwardList[2] ? [forwardList[2].web_name, forwardList[0].element_type] : ''];
         break;
-        case '3-4-3':
-          playersTemp = [goalKeeperList[0]?goalKeeperList[0].web_name:'',
-          defenderList[0]?defenderList[0].web_name:'',
-          defenderList[1]?defenderList[1].web_name:'', 
-          defenderList[2]?defenderList[2].web_name:'',
-          midfielderList[0]?midfielderList[0].web_name:'',
-          midfielderList[1]?midfielderList[1].web_name:'',
-          midfielderList[2]?midfielderList[2].web_name:'',
-          midfielderList[3]?midfielderList[3].web_name:'',
-          forwardList[0]?forwardList[0].web_name:'',
-          forwardList[1]?forwardList[1].web_name:'',
-          forwardList[2]?forwardList[2].web_name:'',
-     
-         ];
-          break;
-          case '3-5-2':
-          playersTemp = [goalKeeperList[0]?goalKeeperList[0].web_name:'',
-          defenderList[0]?defenderList[0].web_name:'',
-          defenderList[1]?defenderList[1].web_name:'', 
-          defenderList[2]?defenderList[2].web_name:'',
-          midfielderList[0]?midfielderList[0].web_name:'',
-          midfielderList[1]?midfielderList[1].web_name:'',
-          midfielderList[2]?midfielderList[2].web_name:'',
-          midfielderList[3]?midfielderList[3].web_name:'',
-          midfielderList[4]?midfielderList[4].web_name:'',
-          forwardList[0]?forwardList[0].web_name:'',
-          forwardList[1]?forwardList[1].web_name:'',
-     
-         ];
-          break;
-   default:
-     break;
- }
-
-    
-
-    const bench = playersTeam.filter(t => !playersTemp.includes(t.web_name))
-    var benchnames = [];
-    for (var i=0;i<bench.length;i++) {
-      benchnames.push(bench[i]?bench[i].web_name:'');
+      case '4-3-2-1':
+        playersTemp = [goalKeeperList[0] ? [goalKeeperList[0].web_name, goalKeeperList[0].element_type] : '',
+        defenderList[0] ? [defenderList[0].web_name, defenderList[0].element_type] : '',
+        defenderList[1] ? [defenderList[1].web_name, defenderList[1].element_type] : '',
+        defenderList[2] ? [defenderList[2].web_name, defenderList[2].element_type] : '',
+        defenderList[3] ? [defenderList[3].web_name, defenderList[3].element_type] : '',
+        midfielderList[0] ? [midfielderList[0].web_name, midfielderList[0].element_type] : '',
+        midfielderList[1] ? [midfielderList[1].web_name, midfielderList[1].element_type] : '',
+        midfielderList[2] ? [midfielderList[2].web_name, midfielderList[2].element_type] : '',
+        midfielderList[3] ? [midfielderList[3].web_name, midfielderList[3].element_type] : '',
+        midfielderList[4] ? [midfielderList[4].web_name, midfielderList[4].element_type] : '',
+        forwardList[0] ? [forwardList[0].web_name, forwardList[0].element_type] : ''];
+        break;
+      case '4-2-3-1':
+        playersTemp = [goalKeeperList[0] ? [goalKeeperList[0].web_name, goalKeeperList[0].element_type] : '',
+        defenderList[0] ? [defenderList[0].web_name, defenderList[0].element_type] : '',
+        defenderList[1] ? [defenderList[1].web_name, defenderList[1].element_type] : '',
+        defenderList[2] ? [defenderList[2].web_name, defenderList[2].element_type] : '',
+        defenderList[3] ? [defenderList[3].web_name, defenderList[3].element_type] : '',
+        midfielderList[0] ? [midfielderList[0].web_name, midfielderList[0].element_type] : '',
+        midfielderList[1] ? [midfielderList[1].web_name, midfielderList[1].element_type] : '',
+        midfielderList[2] ? [midfielderList[2].web_name, midfielderList[2].element_type] : '',
+        midfielderList[3] ? [midfielderList[3].web_name, midfielderList[3].element_type] : '',
+        midfielderList[4] ? [midfielderList[4].web_name, midfielderList[4].element_type] : '',
+        forwardList[0] ? [forwardList[0].web_name, forwardList[0].element_type] : ''];
+        break;
+      case '4-4-2':
+        playersTemp = [goalKeeperList[0] ? [goalKeeperList[0].web_name, goalKeeperList[0].element_type] : '',
+        defenderList[0] ? [defenderList[0].web_name, defenderList[0].element_type] : '',
+        defenderList[1] ? [defenderList[1].web_name, defenderList[1].element_type] : '',
+        defenderList[2] ? [defenderList[2].web_name, defenderList[2].element_type] : '',
+        defenderList[3] ? [defenderList[3].web_name, defenderList[3].element_type] : '',
+        midfielderList[0] ? [midfielderList[0].web_name, midfielderList[0].element_type] : '',
+        midfielderList[1] ? [midfielderList[1].web_name, midfielderList[1].element_type] : '',
+        midfielderList[2] ? [midfielderList[2].web_name, midfielderList[2].element_type] : '',
+        midfielderList[3] ? [midfielderList[3].web_name, midfielderList[3].element_type] : '',
+        forwardList[0] ? [forwardList[0].web_name, forwardList[0].element_type] : '',
+        forwardList[1] ? [forwardList[1].web_name, forwardList[0].element_type] : ''];
+        break;
+      case '5-4-1':
+        playersTemp = [goalKeeperList[0] ? [goalKeeperList[0].web_name, goalKeeperList[0].element_type] : '',
+        defenderList[0] ? [defenderList[0].web_name, defenderList[0].element_type] : '',
+        defenderList[1] ? [defenderList[1].web_name, defenderList[1].element_type] : '',
+        defenderList[2] ? [defenderList[2].web_name, defenderList[2].element_type] : '',
+        defenderList[3] ? [defenderList[3].web_name, defenderList[3].element_type] : '',
+        defenderList[4] ? [defenderList[4].web_name, defenderList[4].element_type] : '',
+        midfielderList[0] ? [midfielderList[0].web_name, midfielderList[0].element_type] : '',
+        midfielderList[1] ? [midfielderList[1].web_name, midfielderList[1].element_type] : '',
+        midfielderList[2] ? [midfielderList[2].web_name, midfielderList[2].element_type] : '',
+        midfielderList[3] ? [midfielderList[3].web_name, midfielderList[3].element_type] : '',
+        forwardList[0] ? [forwardList[0].web_name, forwardList[0].element_type] : ''];
+        break;
+      case '5-3-2':
+        playersTemp = [goalKeeperList[0] ? [goalKeeperList[0].web_name, goalKeeperList[0].element_type] : '',
+        defenderList[0] ? [defenderList[0].web_name, defenderList[0].element_type] : '',
+        defenderList[1] ? [defenderList[1].web_name, defenderList[1].element_type] : '',
+        defenderList[2] ? [defenderList[2].web_name, defenderList[2].element_type] : '',
+        defenderList[3] ? [defenderList[3].web_name, defenderList[3].element_type] : '',
+        defenderList[4] ? [defenderList[4].web_name, defenderList[4].element_type] : '',
+        midfielderList[0] ? [midfielderList[0].web_name, midfielderList[0].element_type] : '',
+        midfielderList[1] ? [midfielderList[1].web_name, midfielderList[1].element_type] : '',
+        midfielderList[2] ? [midfielderList[2].web_name, midfielderList[2].element_type] : '',
+        forwardList[0] ? [forwardList[0].web_name, forwardList[0].element_type] : '',
+        forwardList[1] ? [forwardList[1].web_name, forwardList[0].element_type] : ''];
+        break;
+      case '3-4-3':
+        playersTemp = [goalKeeperList[0] ? [goalKeeperList[0].web_name, goalKeeperList[0].element_type] : '',
+        defenderList[0] ? [defenderList[0].web_name, defenderList[0].element_type] : '',
+        defenderList[1] ? [defenderList[1].web_name, defenderList[1].element_type] : '',
+        defenderList[2] ? [defenderList[2].web_name, defenderList[2].element_type] : '',
+        midfielderList[0] ? [midfielderList[0].web_name, midfielderList[0].element_type] : '',
+        midfielderList[1] ? [midfielderList[1].web_name, midfielderList[1].element_type] : '',
+        midfielderList[2] ? [midfielderList[2].web_name, midfielderList[2].element_type] : '',
+        midfielderList[3] ? [midfielderList[3].web_name, midfielderList[3].element_type] : '',
+        forwardList[0] ? [forwardList[0].web_name, forwardList[0].element_type] : '',
+        forwardList[1] ? [forwardList[1].web_name, forwardList[0].element_type] : '',
+        forwardList[2] ? [forwardList[2].web_name, forwardList[0].element_type] : ''];
+        break;
+      case '3-5-2':
+        playersTemp = [goalKeeperList[0] ? [goalKeeperList[0].web_name, goalKeeperList[0].element_type] : '',
+        defenderList[0] ? [defenderList[0].web_name, defenderList[0].element_type] : '',
+        defenderList[1] ? [defenderList[1].web_name, defenderList[1].element_type] : '',
+        defenderList[2] ? [defenderList[2].web_name, defenderList[2].element_type] : '',
+        midfielderList[0] ? [midfielderList[0].web_name, midfielderList[0].element_type] : '',
+        midfielderList[1] ? [midfielderList[1].web_name, midfielderList[1].element_type] : '',
+        midfielderList[2] ? [midfielderList[2].web_name, midfielderList[2].element_type] : '',
+        midfielderList[3] ? [midfielderList[3].web_name, midfielderList[3].element_type] : '',
+        midfielderList[4] ? [midfielderList[4].web_name, midfielderList[4].element_type] : '',
+        forwardList[0] ? [forwardList[0].web_name, forwardList[0].element_type] : '',
+        forwardList[1] ? [forwardList[1].web_name, forwardList[0].element_type] : ''];
+        break;
+      default:
+        break;
     }
-    this.setState({playersName:playersTemp,benchName:benchnames});
+
+
+
+    const bench = playersTeam.filter(t => !playersTemp.flat().includes(t.web_name));
+    bench.sort(function (a, b) { return parseFloat(a.element_type) - parseFloat(b.element_type) });
+    var benchnames = [];
+    for (var i = 0; i < bench.length; i++) {
+      benchnames.push(bench[i] ? [bench[i].web_name, bench[i].element_type]: '');
+    }
+    
+    this.setState({ playersName: playersTemp, benchName: benchnames });
 
   }
 
@@ -385,8 +375,8 @@ class App extends React.Component {
 
 
   render() {
-    console.log('this.state',this.state);
-    const { displayFormation, backgroundColor, playersName, benchName } = this.state;
+    console.log('this.state', this.state);
+    const { displayFormation, backgroundColor, playersName, benchName,team } = this.state;
 
 
 
@@ -395,27 +385,27 @@ class App extends React.Component {
     return (
       <>
         <Navbar />
-        <SelectTeam listTeams={listTeams} setTeam={this.setTeam} disabled={this.state.data.elements?false:true}/>
+        <SelectTeam listTeams={listTeams} setTeam={this.setTeam} disabled={this.state.data.elements ? false : true} />
         <br />
         <SelectDisplay formation={formation} changeDisplay={this.changeDisplay} />
         <div id='container'>
-          <PlayersOnField id='playersOnField1' playersName={playersName}/>
-        <div id='field'>
+          <PlayersOnField  playersName={playersName} team={team} />
+          <div id='field'>
 
-          <div id='goal' className='player'><i id='player goalKeeper' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='goalName'>{playersName[0][0]}</p></div>
-          <div className={displayFormation[0]}><i id='player2' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def1Name'>{playersName[1][0]}</p></div>
-          <div className={displayFormation[1]}><i id='player3' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def2Name'>{playersName[2][0]}</p></div>
-          <div className={displayFormation[2]}><i id='player4' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def3Name'>{playersName[3]}</p></div>
-          <div className={displayFormation[3]}><i id='player5' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def4Name'>{playersName[4]}</p></div>
-          <div className={displayFormation[4]}><i id='player6' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid1Name'>{playersName[5]}</p></div>
-          <div className={displayFormation[5]}><i id='player7' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid2Name'>{playersName[6]}</p></div>
-          <div className={displayFormation[6]}><i id='player8' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid3Name'>{playersName[7]}</p></div>
-          <div className={displayFormation[7]}><i id='player9' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for1Name'>{playersName[8]}</p></div>
-          <div className={displayFormation[8]}><i id='player10' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for2Name'>{playersName[9]}</p></div>
-          <div className={displayFormation[9]}><i id='player11' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for3Name'>{playersName[10]}</p></div>
+            <div id='goal' className='player'><i id='player goalKeeper' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='goalName'>{playersName[0][0]}</p></div>
+            <div className={displayFormation[0]}><i id='player2' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def1Name'>{playersName[1][0]}</p></div>
+            <div className={displayFormation[1]}><i id='player3' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def2Name'>{playersName[2][0]}</p></div>
+            <div className={displayFormation[2]}><i id='player4' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def3Name'>{playersName[3][0]}</p></div>
+            <div className={displayFormation[3]}><i id='player5' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='def4Name'>{playersName[4][0]}</p></div>
+            <div className={displayFormation[4]}><i id='player6' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid1Name'>{playersName[5][0]}</p></div>
+            <div className={displayFormation[5]}><i id='player7' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid2Name'>{playersName[6][0]}</p></div>
+            <div className={displayFormation[6]}><i id='player8' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='mid3Name'>{playersName[7][0]}</p></div>
+            <div className={displayFormation[7]}><i id='player9' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for1Name'>{playersName[8][0]}</p></div>
+            <div className={displayFormation[8]}><i id='player10' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for2Name'>{playersName[9][0]}</p></div>
+            <div className={displayFormation[9]}><i id='player11' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p id='for3Name'>{playersName[10][0]}</p></div>
 
-        </div>
-        <PlayersOnBench id='playersOnBench1' benchName={benchName}/>
+          </div>
+          <PlayersOnBench id='playersOnBench1' benchName={benchName} />
         </div>
         <Footer />
       </>
