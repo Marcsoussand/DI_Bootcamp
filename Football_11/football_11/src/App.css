@@ -40,8 +40,9 @@ body {
 }
 
 #saveButton:hover {
-  background-color:white;
-  color:  #24AB33 ;
+  background-color: #006106;
+  
+  
 }
 
 #field {
@@ -166,6 +167,9 @@ body {
   /* font-size: 1em; */
 }
 
+.hide {
+  visibility: hidden;
+}
 
 
 

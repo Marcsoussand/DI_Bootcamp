@@ -15,7 +15,14 @@ nav {
     font-size: 80%;
 }
 
-.navItems :hover {
+.navItems {
+    padding: 0 5px;
+}
+
+.navItems:hover {
+    background-color: #4F628E;
+    /* border: 1px white solid; */
+    border-radius: 5px;
     
 }
 

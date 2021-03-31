@@ -2,12 +2,12 @@
 
 const PlayersOnBench = (props) => {
 
-    let {benchName} = props;
+    let {benchName,visibilityStatus} = props;
     var position = '';
 
     return (
         
-    <div> Other Players Available
+    <div style={{visibility:visibilityStatus}}> Other Players Available
         <ul id='bench'> 
             {benchName.map((item,i) => {
                   switch (item[1]) {

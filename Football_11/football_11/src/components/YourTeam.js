@@ -1,14 +1,13 @@
 
 
-const PlayersOnField = (props) => {
+const YourTeam = (props) => {
 
-    let { playersName, visibilityStatus } = props;
+    let { playersName,visibilityStatus } = props;
     var position = '';
-    console.log({visibilityStatus});
     return (
         <>
-
-            <ul id='playersOnField1' style={{visibility:visibilityStatus}}>
+            
+            <ul style={{visibility:visibilityStatus}} id='playersOnField1'>
                 Players 
                 {playersName.map((item, i) => {
                     switch (item[1]) {
@@ -29,7 +28,7 @@ const PlayersOnField = (props) => {
                     };
 
 
-                    return <li key={i}>{position} {item[0]}  </li>
+                    return <li key={i}>{position} {item[0]} </li>
                 })}
             </ul>
         </>
@@ -37,4 +36,4 @@ const PlayersOnField = (props) => {
 
 }
 
-export default PlayersOnField
+export default YourTeam
