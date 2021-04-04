@@ -130,7 +130,7 @@ footer {
     color: white;
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     position: absolute;
     bottom: 0;
 }

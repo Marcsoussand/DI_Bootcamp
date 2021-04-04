@@ -11,7 +11,7 @@ document.body.appendChild(navBar);
 let languageContainer = document.createElement('div');
 let flag = document.createElement('img');
 flag.id = "flag";
-flag.src = "UK.png";
+flag.src = "./Images/UK.png";
 let language = document.createElement('select');
 language.id = "language";
 let englishChoice = document.createElement('option');
@@ -39,17 +39,17 @@ language.onchange = function (event) {
     let choice = event.target.value;
     switch (choice) {
         case "english":
-            flag.src = "UK.png";
+            flag.src = "./Images/UK.png";
             searchText.innerHTML = "Ready for a little treasure hunt ?";
             buttonSearch.innerHTML = "Let's go !";
             instructionsText.innerHTML = "=> First Move : Look at the bigger picture !";
             buttonInstruction1.innerHTML = "Or Even Bigger !";
             instructions2Text.innerHTML = "=> Second Move : Looks like there is something near Ashdod";
             buttonInstruction2.innerHTML = "Zoom on it";
-            finalText.innerHTML = "Hello, Marc Soussand, ready to work !";
+            finalText.innerHTML = "Hello, I am Marc Soussand, ready to work !";
             break;
         case "french":
-            flag.src = "france.png";
+            flag.src = "./Images/france.png";
             searchText.innerHTML = "Prêt pour une petite chasse au trésor ?";
             buttonSearch.innerHTML = "Allons-y !";
             instructionsText.innerHTML = "=> Première étape : Prendre du recul !";
@@ -59,7 +59,7 @@ language.onchange = function (event) {
             finalText.innerHTML = "Bonjour, Marc Soussand, pour vous servir";
             break;
         case "hebrew":
-            flag.src = "Israel.png";
+            flag.src = "./Images/Israel.png";
             searchText.innerHTML = " מוכן לחפש את האוצר"
             buttonSearch.innerHTML = "קדימה !"
             instructionsText.innerHTML = "צעד ראשון : תסתכלו על התמונה יותר גדולה"+" <=";
@@ -187,10 +187,10 @@ buttonInstruction2.onclick = function () {
 let finalBox = document.createElement('div');
 let final = document.createElement('img');
 let finalText = document.createElement('p');
-let finalTextContent = document.createTextNode('Hello, my name is Marc Soussand');
+let finalTextContent = document.createTextNode('Hello, I am Marc Soussand, ready to work !');
 finalBox.id = "finalBox";
 final.id = "final";
-final.src = "Marc_Soussand.jpg";
+final.src = "./Images/Marc_Soussand.jpg";
 finalText.id = "finalText";
 finalBox.appendChild(final);
 finalText.appendChild(finalTextContent);
@@ -204,5 +204,14 @@ mapContainer.appendChild(finalBox);
 //3.Creation of the footer
 let footer = document.createElement('footer');
 let textFooter = document.createTextNode('I do not know if I will get the intern position, but at least I enjoyed working on it. Thank you !');
+let github = document.createElement('div');
+let githubLink = document.createElement('a');
+let githubFA = document.createElement('i');
+let githubText = document.createTextNode('Project on GitHub - ');
+githubLink.href=
+githubFA.classList = "fab fa-github"
+github.appendChild(githubText);
+github.appendChild(githubFA);
 footer.appendChild(textFooter);
+footer.appendChild(github);
 document.body.appendChild(footer);
