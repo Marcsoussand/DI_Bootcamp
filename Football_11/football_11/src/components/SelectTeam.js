@@ -19,6 +19,7 @@ return (
     <label htmlFor="mySelect">Choose your team : </label>
     {/* <select id='mySelect' className="selector" onChange={changeColor} disabled={disabled} > */}
     <select id='mySelect' className="selector" onChange={setTeam} disabled={disabled}>
+        <option>Premier League Teams</option>
         {listTeams.map((item,i) => {
 
             return <option id={item.teamName} key={i} value={item.teamName} >{item.teamName}</option>})}

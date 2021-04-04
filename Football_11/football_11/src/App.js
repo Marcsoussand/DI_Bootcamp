@@ -8,6 +8,8 @@ import PlayersOnField from './components/PlayersonField';
 import PlayersOnBench from './components/PlayersonBench';
 import YourTeam from './components/YourTeam';
 
+
+// Creating all Premier League Teams, with id, name, color and logo.
 const listTeams = [
   { id: 1, teamName: "Arsenal", color: "#EB302E", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/arsenal.png" },
   { id: 2, teamName: "Aston Villa", color: "#480025", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/astonvilla.png" },
@@ -31,6 +33,7 @@ const listTeams = [
   { id: 20, teamName: "Wolverhampton", color: "#F9A01B", logo: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/wolves.png" }
 ];
 
+//Creating all the fornations available
 const formation = ["4-3-3", "4-3-2-1", "4-2-3-1", "4-4-2", "5-4-1", "5-3-2", "3-4-3", "3-5-2"];
 
 
@@ -39,18 +42,18 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      page:'real',
-      backgroundColor: 'red',
-      team: '',
+      page:'real', //Used as a page switch
+      backgroundColor: 'red', //Jersey color
+      team: '', //Team on screen
       idteam: '',
       badge:"https://www.fantasy-coach.fr/wp-content/uploads/2020/08/arsenal.png",
-      data: {},
+      data: {}, //Fantasy Premier League API data fetched
       playersName: ['Goal',
         'Def1', 'Def2', 'Def3', 'Def4',
         'Mid1', 'Mid2', 'Mid3',
-        'For1', 'For2', 'For3'],
-      benchName: [],
-      display: '4-3-3',
+        'For1', 'For2', 'For3'], // Players Names on field
+      benchName: [], // Players Names on bench, available for swaps
+      display: '4-3-3', // Fornation selected, here 4-3-3 by default
       displayFormation: ['line4-1 player defender',
         'line4-2 player defender', 'line4-3 player defender',
         'line4-4 player defender',
@@ -59,7 +62,7 @@ class App extends React.Component {
         'line3-3 player midfielder',
         'line3-1 player forward',
         'line3-2 player forward',
-        'line3-3 player forward'],
+        'line3-3 player forward'], // Using a CSS grid, all players will go to their right place
       disabled: false,
       visibilityStatus: 'hidden',
       
@@ -71,14 +74,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // fetch('https://cors-anywhere.herokuapp.com/https://fantasy.premierleague.com/api/bootstrap-static/',{
-    fetch('https://fantasy.premierleague.com/api/bootstrap-static/?include_summary="true"', {
+    fetch('https://fantasy.premierleague.com/api/bootstrap-static/', {
       method: "GET",
-      // mode: "cors", // no-cors, *cors, same-origin
-      // headers:{
-      //   "Access-Control-Allow-Origin": "*",
-      //   'Access-Control-Allow-Headers': "*"
-      // }
     })
       .then(response => response.json())
       .then(playerData => {
@@ -102,7 +99,6 @@ class App extends React.Component {
 
   changeDisplay = async (e) => {
     await this.setState({ display: e.target.value });
-    // console.log(this.state.display);
     switch (this.state.display) {
       case '4-3-3':
         this.setState({
@@ -252,12 +248,8 @@ class App extends React.Component {
     midfielderList.sort(function (a, b) { return parseFloat(b.now_cost) - parseFloat(a.now_cost) });
     const forwardList = playersTeam.filter(t => t.element_type === 4);
     forwardList.sort(function (a, b) { return parseFloat(b.now_cost) - parseFloat(a.now_cost) });
-    // const goalKeeperValue = Math.max(...goalKeeperList.map(o => o.now_cost), 0);
-    // const goalKeeper = goalKeeperList.find(t => t.now_cost === goalKeeperValue);
     console.log("players", playersTeam);
-    // const goalKeeperN = goalKeeperList.web_name;
 
-    // this.setState({goalKeeperName: goalKeeper.web_name});
 
 
     const displayUse = this.state.display;
@@ -381,6 +373,8 @@ class App extends React.Component {
     }
 
     this.setState({ playersName: playersTemp, benchName: benchnames, visibilityStatus:'visible'});
+
+    if(forwardList.length<=2 && displayUse.substr(-1)==='3') {alert("Only 2 forwards for this team, we suggest you to choose another formation !")}
 
 
 

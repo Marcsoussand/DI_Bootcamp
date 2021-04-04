@@ -31,6 +31,8 @@ body {
   list-style-type: none;
 }
 
+
+
 #saveButton {
   background-color: #24AB33;
   color: white;
@@ -49,10 +51,10 @@ body {
   width: 400px;
   height: 605px;
   border: 1px solid black;
-  background-image: url("Field.svg.png");
+  background-image: url("./Images/Field.svg.png");
   display: grid;
   grid-template-columns: repeat(10,10%);
-  grid-template-rows: repeat(2,20%) repeat(3,8%) repeat(2,18%);
+  grid-template-rows: 23% 12% 5% repeat(2,8%) 10% repeat(2,18%);
   margin: 50px auto;
   box-shadow: 3px 5px #4F628E;
 }
@@ -66,9 +68,7 @@ body {
   list-style-type: none;
   margin-bottom: 50px;
 }
-/* #playersOnBench1 {
-  margin-bottom: 50px;
-} */
+
 .teamColor {
   color:red;
 }
@@ -84,7 +84,7 @@ body {
 
 
 .defender {
-  grid-row: 2/3;
+  grid-row: 2/2;
 }
 
 .line5-1 {
@@ -121,20 +121,20 @@ body {
 
 
 .midfielder {
-  grid-row: 4/5;
+  grid-row: 5/6;
 }
 .defmidfielder {
-  grid-row:3/4;
+  grid-row:4/5;
 }
 .offmidfielder {
-  grid-row: 5/6;
+  grid-row: 6/7;
 }
 
 .line3-1 {
   grid-column: 2/4;
 }
 .line3-2 {
-  grid-column: 5/7;
+  grid-column: 4/8;
 }
 
 .line3-3 {
@@ -153,13 +153,13 @@ body {
 }
 
 .forward {
-  grid-row: 6/7;
+  grid-row: 7/7;
 }
 
 #badgeDisplay {
   margin: 0 auto;
   grid-column: 5/7;
-  grid-row: 7/8;
+  grid-row: 8/9;
 }
 
 .playerDisplay {
