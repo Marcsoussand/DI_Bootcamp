@@ -78,8 +78,7 @@ nav {
 }
 
 #buttonSearch:hover {
-    background-color: #007F65;
-    
+    background-color: #007F65;    
 }
 
 
@@ -102,6 +101,29 @@ nav {
     font-weight: bold;
 }
 
+.buttonInstruction:hover {
+    background-color: #007F65; 
+}
+
+#instructions2 {
+    grid-column: 1/2;
+    grid-row: 3/4;
+    visibility: hidden;
+    text-align: center;
+}
+
+#finalBox {
+   
+    grid-column: 1/2;
+    grid-row: 4/5;
+    visibility: hidden;
+    text-align: center;
+    
+}
+
+#final {
+    width: 150px;
+}
 
 footer {
     background-color: #5EBF86;
@@ -112,3 +134,54 @@ footer {
     position: absolute;
     bottom: 0;
 }
+
+/* @media all and (min-width: 830px) and (max-width: 1024px) { } */
+
+@media all and (min-width: 480px) and (max-width: 830px) {
+    #searchText {
+        padding-right: 20px ;
+        font-size: 100%;
+    }
+
+    #buttonSearch {
+            font-size: 100%;
+        }
+
+    #final {
+        width: 100px;
+    }
+
+
+    
+ }
+
+@media all and (max-width: 480px) {
+    nav {
+        font-size: 100%;
+    }
+    #searchText {
+        font-size: 100%;
+    }
+    #buttonSearch {
+        font-size: 100%;
+    }
+    #searchLaunch {
+        grid-column: 1/5;
+    }
+    #final {
+        width: 100px;
+    }
+    .buttonInstruction {
+        font-size: 80%;
+    }
+    #instructions {
+        font-size: 80%;
+    }
+    #instructions2 {
+        font-size: 80%;
+    }
+    #finalText {
+        font-size: 80%;
+    }
+    
+ }
