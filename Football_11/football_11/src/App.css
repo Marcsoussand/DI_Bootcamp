@@ -20,32 +20,43 @@ body {
   margin: 10px 0 5px 15px;
   background-color: transparent;
     border: none;
-    color: #162955;;
+    color: #162955;
+    font-weight: bold;
+    font-size:90%;
     border-bottom: 1px solid white;
 }
 #playersOnField1 {
-  margin: 20px auto;
-  height: fit-content;
-  border: 1px white solid;
-  border-radius: 10px;
+  margin: 20px 10px 0 10px;
+  /* height: fit-content; */
+  /* border: 2px gold solid; */
+  /* border-radius: 10px; */
   list-style-type: none;
-}
-
-
-
-#saveButton {
-  background-color: #24AB33;
-  color: white;
-  border-radius: 10px;
   padding:10px;
-  font-size: 2em;
+  /* background-color: cornflowerblue; */
+  /* box-shadow: -3px 3px #162955; */
 }
 
-#saveButton:hover {
-  background-color: #006106;
-  
-  
+#playersTitle {
+  text-align: center;
+  font-size: 150%;
+  font-weight: bold;
+  color: gold;
 }
+
+#playersOnField1 li {
+  margin-top:5px;
+  color:white;
+  border-radius: 30px;
+  width:max-content;
+}
+
+#playersOnField1 li::first-letter {
+  color:gold;
+  font-weight: bold;
+}
+
+
+
 
 #field {
   width: 400px;
@@ -60,13 +71,40 @@ body {
 }
 
 #rightSide {
-  padding-top: 50px;
+  padding-top: 135px;
+  font-size: 150%;
+  font-weight: bold;
+  color: gold;
 }
 #bench {
   column-count: 2;
   margin:0 auto;
+  padding-top: 5px;
   list-style-type: none;
   margin-bottom: 50px;
+  color: white;
+  font-weight: normal;
+  font-size: 60%;
+}
+
+#bench li::first-letter {
+  color:gold;
+  font-weight: bold;
+
+}
+#saveButton {
+  background-color: #24AB33;
+  color: white;
+  border-radius: 10px;
+  padding:10px;
+  font-size: 1em;
+  margin: 0 20px;
+}
+
+#saveButton:hover {
+  background-color: #006106;
+  
+  
 }
 
 .teamColor {
@@ -173,7 +211,10 @@ body {
 
 
 
-
+.inputPlayers {
+  margin-left:5px;
+  background-color: #7887AB;
+}
 
 
 
