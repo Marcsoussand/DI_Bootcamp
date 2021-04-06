@@ -7,6 +7,11 @@ nav {
     font-size: 150%;
 }
 
+nav >span >img {
+    width: 30px;
+    vertical-align: middle;
+}
+
 #login {
     color: white;
     background-color: cornflowerblue;

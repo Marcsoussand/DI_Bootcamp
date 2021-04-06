@@ -6,7 +6,8 @@
 }
 
 body {
-  background-color: #7887AB;
+  /* background-color: #7887AB; */
+  background-image: linear-gradient(to bottom, #7887ab, #5f6e95, #47567f, #2f3f6a, #162955);
   
 }
 
@@ -15,6 +16,13 @@ body {
   grid-template-columns: 30% 40% 30%;
   grid-template-rows: 100%;
 }
+
+
+
+#leftSide > label {
+  margin-left: 10px;
+}
+
 
 .selector {
   margin: 10px 0 5px 15px;
@@ -25,8 +33,20 @@ body {
     font-size:90%;
     border-bottom: 1px solid white;
 }
+
+#available {
+  color: white;
+background-color: #24AB33;
+margin: 10px;
+padding: 5px;
+visibility: hidden;
+border-radius: 10px;
+font-size: 80%;
+}
+
+
 #playersOnField1 {
-  margin: 20px 10px 0 10px;
+  margin: 0 10px ;
   /* height: fit-content; */
   /* border: 2px gold solid; */
   /* border-radius: 10px; */
@@ -35,6 +55,9 @@ body {
   /* background-color: cornflowerblue; */
   /* box-shadow: -3px 3px #162955; */
 }
+
+
+
 
 #playersTitle {
   text-align: center;
@@ -198,6 +221,7 @@ body {
   margin: 0 auto;
   grid-column: 5/7;
   grid-row: 8/9;
+  width: 50px;
 }
 
 .playerDisplay {
@@ -214,7 +238,15 @@ body {
 .inputPlayers {
   margin-left:5px;
   background-color: #7887AB;
+  border-radius: 5px;
 }
+
+ul > li > div {
+  width: 70px;
+  display: inline-block;
+
+}
+
 
 
 

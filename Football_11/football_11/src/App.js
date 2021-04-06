@@ -9,6 +9,8 @@ import PlayersOnBench from './components/PlayersonBench';
 import YourTeam from './components/YourTeam';
 import About from './components/About';
 import Login from './components/Login';
+import logo from './Images/logo.PNG';
+import Modal from './components/Modal';
 
 
 // Creating all Premier League Teams, with id, name, color and logo.
@@ -36,7 +38,7 @@ const listTeams = [
 ];
 
 //Creating all the fornations available
-const formation = ["4-3-3", "4-3-2-1", "4-2-3-1", "4-4-2", "5-4-1", "5-3-2", "3-4-3", "3-5-2"];
+const formation = ["4-2-3-1","4-3-2-1", "4-3-3", "4-4-2", "5-4-1", "5-3-2", "3-4-3", "3-5-2"];
 
 
 
@@ -48,25 +50,29 @@ class App extends React.Component {
       backgroundColor: 'red', //Jersey color
       team: '', //Team on screen
       idteam: '',
-      badge: "https://www.fantasy-coach.fr/wp-content/uploads/2020/08/arsenal.png",
+      badge: logo,
       data: {}, //Fantasy Premier League API data fetched
       playersName: ['Goal',
         'Def1', 'Def2', 'Def3', 'Def4',
         'Mid1', 'Mid2', 'Mid3',
-        'For1', 'For2', 'For3'], // Players Names on field
+        'Mid4', 'Mid5', 'For1'], // Players Names on field
       benchName: [], // Players Names on bench, available for swaps
-      display: '4-3-3', // Fornation selected, here 4-3-3 by default
+      display: '4-2-3-1', // Formation selected, here 4-2-3-1 by default
       displayFormation: ['line4-1 player defender',
-        'line4-2 player defender', 'line4-3 player defender',
-        'line4-4 player defender',
-        'line3-1 player midfielder',
-        'line3-2 player midfielder',
-        'line3-3 player midfielder',
-        'line3-1 player forward',
-        'line3-2 player forward',
-        'line3-3 player forward'], // Using a CSS grid, all players will go to their right place
+      'line4-2 player defender',
+      'line4-3 player defender',
+      'line4-4 player defender',
+      'line2-1 player defmidfielder',
+      'line2-2 player defmidfielder',
+      'line3-1 player offmidfielder',
+      'line3-2 player offmidfielder',
+      'line3-3 player offmidfielder',
+      'line1-1 player forward'], // Using a CSS grid, all players will go to their right place
       disabled: false,
       visibilityStatus: 'hidden',
+      available:false,
+      availableText:"Exclude injured and suspended players",
+      modalClasses:"overlay"
 
 
 
@@ -96,7 +102,10 @@ class App extends React.Component {
   }
 
   yourTeam = () => {
-    this.setState({ page: 'your', visibilityStatus: 'hidden' })
+    this.setState({ page: 'your', visibilityStatus: 'hidden', playersName: ['P',
+    'P', 'P', 'P', 'P',
+    'P', 'P', 'P',
+    'P', 'P', 'P']})
     console.log(this.state.page);
   }
 
@@ -113,23 +122,28 @@ class App extends React.Component {
     console.log(this.state.playersName);
         }
 
+  availablePlayers = async () => {
+    switch (this.state.available) {
+      case false:
+        await this.setState({available:true, availableText:"Include injured and suspended players"})
+    console.log(this.state.available);
+    this.getPlayers();
+
+        break;
+        case true:
+          await this.setState({available:false, availableText: "Exclude injured and suspended players"})
+    console.log(this.state.available);
+    this.getPlayers();
+       
+      default:
+        break;
+    }
+
+  }
+
   changeDisplay = async (e) => {
     await this.setState({ display: e.target.value });
     switch (this.state.display) {
-      case '4-3-3':
-        this.setState({
-          displayFormation: ['line4-1 player defender',
-            'line4-2 player defender',
-            'line4-3 player defender',
-            'line4-4 player defender',
-            'line3-1 player midfielder',
-            'line3-2 player midfielder',
-            'line3-3 player midfielder',
-            'line3-1 player forward',
-            'line3-2 player forward',
-            'line3-3 player forward'],
-        })
-        break;
       case '4-2-3-1':
         this.setState({
           displayFormation: ['line4-1 player defender',
@@ -157,6 +171,20 @@ class App extends React.Component {
             'line2-1 player offmidfielder',
             'line2-2 player offmidfielder',
             'line1-1 player forward'],
+        })
+        break;
+      case '4-3-3':
+        this.setState({
+          displayFormation: ['line4-1 player defender',
+            'line4-2 player defender',
+            'line4-3 player defender',
+            'line4-4 player defender',
+            'line3-1 player midfielder',
+            'line3-2 player midfielder',
+            'line3-3 player midfielder',
+            'line3-1 player forward',
+            'line3-2 player forward',
+            'line3-3 player forward'],
         })
         break;
       case '4-4-2':
@@ -257,7 +285,7 @@ class App extends React.Component {
   getPlayers = () => {
     // Filter through list of all players to get the players of the team who are not injured
     // const playersTeam = this.state.data.elements.filter(t => t.team === this.state.idteam && t.chance_of_playing_this_round === 100 && t.status === 'a');
-    const playersTeam = this.state.data.elements.filter(t => t.team === this.state.idteam);
+    const playersTeam = (this.state.available)?this.state.data.elements.filter(t => t.team === this.state.idteam && t.status === 'a'):this.state.data.elements.filter(t => t.team === this.state.idteam);
     // // // Get only the best goalkeeper
     const goalKeeperList = playersTeam.filter(t => t.element_type === 1);
     goalKeeperList.sort(function (a, b) { return parseFloat(b.now_cost) - parseFloat(a.now_cost) });
@@ -393,7 +421,7 @@ class App extends React.Component {
 
     this.setState({ playersName: playersTemp, benchName: benchnames, visibilityStatus: 'visible' });
 
-    if (forwardList.length <= 2 && displayUse.substr(-1) === '3') { alert("Only 2 forwards for this team, we suggest you to choose another formation !") }
+    if (forwardList.length <= displayUse.substr(-1)) { alert("Fewer available forwards than requested on this formation, we suggest you to choose another formation !") }
 
 
 
@@ -404,7 +432,7 @@ class App extends React.Component {
 
   render() {
     console.log('this.state', this.state);
-    const { displayFormation, backgroundColor, playersName, benchName, team, badge, page, visibilityStatus } = this.state;
+    const { displayFormation, backgroundColor, playersName, benchName, team, badge, page, visibilityStatus, availableText } = this.state;
 
 
 
@@ -416,10 +444,12 @@ class App extends React.Component {
 
 
             <div id='container'>
+              <Modal/>
               <div id='leftSide'>
                 <SelectTeam listTeams={listTeams} setTeam={this.setTeam} disabled={this.state.data.elements ? false : true} />
                 <br />
                 <SelectDisplay formation={formation} changeDisplay={this.changeDisplay} />
+                <button type="button" id='available' style={{visibility:visibilityStatus}} onClick={this.availablePlayers}>{availableText}</button>
                 <PlayersOnField visibilityStatus={visibilityStatus} playersName={playersName} team={team} />
               </div>
               <div id='field'>

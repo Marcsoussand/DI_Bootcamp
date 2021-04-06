@@ -17,7 +17,7 @@ const YourTeam = (props) => {
         <>
             
             <ul style={{visibility:'visible'}} id='playersOnField1'>
-                Players 
+                <h3 style={{textAlign:"center",color:"gold"}} >Players </h3>
                 {playersName.map((item, i) => {
                     // switch (item[1]) {
                     //     case 1:
@@ -37,7 +37,7 @@ const YourTeam = (props) => {
                     // };
 
 
-                    return <li key={i}>{position}<input type="text" className='inputPlayers' id={nameInput(i)} onChange={(event) =>setPlayer(i,event.target.value)} /> </li>
+                    return <li key={i} className='playerListDesign'>{position}<div>Player {i+1}</div><input type="text" className='inputPlayers' id={nameInput(i)} /> </li>
                 })}
             </ul>
         </>
