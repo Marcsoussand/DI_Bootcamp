@@ -11,6 +11,7 @@ import About from './components/About';
 import Login from './components/Login';
 import logo from './Images/logo.PNG';
 import Modal from './components/Modal';
+// import ErrorBoundary from './components/ErrorBoundary';
 
 
 // Creating all Premier League Teams, with id, name, color and logo.
@@ -45,6 +46,7 @@ const formation = ["4-2-3-1","4-3-2-1", "4-3-3", "4-4-2", "5-4-1", "5-3-2", "3-4
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.setPlayerNames=this.setPlayerNames.bind(this);
     this.state = {
       page: 'real', //Used as a page switch
       backgroundColor: 'red', //Jersey color
@@ -117,8 +119,8 @@ class App extends React.Component {
     this.setState({page:'login'})
   }
 
-  setPlayer = (i,t) =>{
-    // this.setState({playersName[i];
+  setPlayerNames = (arr) =>{
+  //  this.setState({playersName:arr});
     console.log(this.state.playersName);
         }
 
@@ -281,6 +283,10 @@ class App extends React.Component {
     this.getPlayers();
   }
 
+  closeModal = () => {
+    this.setState({modalClasses:"overlay"})
+  }
+
 
   getPlayers = () => {
     // Filter through list of all players to get the players of the team who are not injured
@@ -421,7 +427,7 @@ class App extends React.Component {
 
     this.setState({ playersName: playersTemp, benchName: benchnames, visibilityStatus: 'visible' });
 
-    if (forwardList.length <= displayUse.substr(-1)) { alert("Fewer available forwards than requested on this formation, we suggest you to choose another formation !") }
+    if (forwardList.length < displayUse.substr(-1)) {this.setState({modalClasses:"show overlay"})}
 
 
 
@@ -432,7 +438,7 @@ class App extends React.Component {
 
   render() {
     console.log('this.state', this.state);
-    const { displayFormation, backgroundColor, playersName, benchName, team, badge, page, visibilityStatus, availableText } = this.state;
+    const { displayFormation, backgroundColor, playersName, benchName, team, badge, page, visibilityStatus, availableText, modalClasses } = this.state;
 
 
 
@@ -444,7 +450,7 @@ class App extends React.Component {
 
 
             <div id='container'>
-              <Modal/>
+              <Modal modalClasses={modalClasses} closeModal={this.closeModal}/>
               <div id='leftSide'>
                 <SelectTeam listTeams={listTeams} setTeam={this.setTeam} disabled={this.state.data.elements ? false : true} />
                 <br />
@@ -487,7 +493,7 @@ class App extends React.Component {
             <div id='container'>
               <div id='leftSide'>
                 <SelectDisplay formation={formation} changeDisplay={this.changeDisplay} />
-                <YourTeam visibilityStatus={visibilityStatus} playersName={playersName} team={team} setPlayer={this.setPlayer}/>
+                <YourTeam visibilityStatus={visibilityStatus} playersName={playersName} team={team} setPlayerNames={this.setPlayerNames}/>
               </div>
               <div id='field'>
 

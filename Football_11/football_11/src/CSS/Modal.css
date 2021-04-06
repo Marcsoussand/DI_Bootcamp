@@ -20,7 +20,7 @@
 	padding: 20px;
 	background: #ffffff;
 	border-radius: 5px;
-	width: 85%;
+	width: 75%;
 	position: relative;
 	transition: all 3s ease-in-out;
 	
@@ -40,15 +40,25 @@
 	font-weight: bold;
 	text-decoration: none;
 	color: #333;
+    
 }
 
 .popup .close:hover {
 	color: #E5F720;
+    cursor: pointer;
+   
+
+    
 }
 
-.popup .content-1,
-.content-2 {
+.popup .content-1
+{
 	max-height: 30%;
 	overflow: auto;
 	text-align: center;
+}
+
+.show {
+	visibility: visible;
+	opacity: 100;
 }

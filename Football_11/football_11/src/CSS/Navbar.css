@@ -20,6 +20,11 @@ nav >span >img {
     font-size: 80%;
 }
 
+#login:hover {
+    color:gold;
+    border: 2px solid gold;
+}
+
 .navItems {
     padding: 0 5px;
 }
@@ -28,6 +33,6 @@ nav >span >img {
     background-color: #4F628E;
     /* border: 1px white solid; */
     border-radius: 5px;
-    
+    cursor: pointer;
 }
 
