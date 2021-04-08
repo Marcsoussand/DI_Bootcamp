@@ -4,37 +4,27 @@ var playersTemp2 = [];
 class YourTeam extends React.Component {
     constructor(props) {
         super(props);
-        this.setPlayer = this.setPlayer.bind(this)};
-    // this.showPlayers=this.showPlayers.bind(this)};
-        // this.nameInput = this.nameInput.bind(this);
+        this.setPlayer = this.setPlayer.bind(this)
+    };
 
-        // let {playersName} = props;
-        // var position = '';
-        // var playersTemp2 = [];
-
-        // nameInput = (i) => {
-        //     return ("input" + i)
-        // }
-
-        async componentDidMount(){
-            await fetch('http://localhost:8080/show')
+    async componentDidMount() {
+        await fetch('http://localhost:8081/show')
             .then(res => res.json())
             .then(data => {
                 this.props.showPlayers(data)
-            })
-        }
+            }
+            )
+    }
 
 
 
-        setPlayer(playersTemp2){
-            this.props.setPlayerNames(playersTemp2);
-        }
+    setPlayer(playersTemp2) {
+        this.props.setPlayerNames(playersTemp2);
+    }
 
-render () {
+    render() {
 
-        // setPlayer = () => {
-        //     this.props.playersName = playersTemp2;
-        // }
+
         var playersTemp2 = [];
         const playersName = this.props.playersName;
 
@@ -44,25 +34,8 @@ render () {
                 <ul style={{ visibility: 'visible' }} id='playersOnField1'>
                     <h3 style={{ textAlign: "center", color: "gold" }} >Players </h3>
                     {playersName.map((item, i) => {
-                        // switch (item[1]) {
-                        //     case 1:
-                        //         position = 'G'
-                        //         break;
-                        //     case 2:
-                        //         position = 'D';
-                        //         break;
-                        //     case 3:
-                        //         position = 'M';
-                        //         break;
-                        //     case 4:
-                        //         position = 'F';
-                        //         break;
-                        //     default:
-                        //         break;
-                        // };
-
                         playersTemp2.push(item);
-                        return <li key={i} className='playerListDesign'><div>Player {i + 1}</div><input type="text" className='inputPlayers'  onChange={event => { playersTemp2[i] = event.target.value; this.setPlayer(playersTemp2); console.log(playersTemp2);}} /> </li>
+                        return <li key={i} className='playerListDesign'><div>Player {i + 1}</div><input type="text" className='inputPlayers' onChange={event => { playersTemp2[i] = event.target.value; this.setPlayer(playersTemp2); console.log(playersTemp2); }} /> </li>
                     })}
                 </ul>
             </>

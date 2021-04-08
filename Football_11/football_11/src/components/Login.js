@@ -1,12 +1,12 @@
 import '../CSS/Login.css';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 
 //Login page, used to deal with a token username/password in order to connect to the site.
 
 // async function loginUser(credentials) {
-//     return fetch('http://localhost:8080/login', {
+//     return fetch('http://localhost:8081/login', {
 //       method: 'POST',
 //       headers: {
 //         'Content-Type': 'application/json'
@@ -29,9 +29,12 @@ export default function Login({ setToken }) {
          username,
          password
        });
+       console.log(token);
        localStorage.setItem('token', JSON.stringify(token));
        setToken(token);
      }
+
+     
     return (
         <>
         <div id='loginContainer'>
@@ -46,7 +49,8 @@ export default function Login({ setToken }) {
         <input type="password" className='inputLogin' onChange={e => setPassword(e.target.value)}/>
       </label>
       <div>
-      <NavLink to='/realTeams'><button type="submit" className='loginButton'>Submit</button></NavLink>
+      {/* <NavLink to='/realTeams'><button type="submit" className='loginButton'>Submit</button></NavLink> */}
+      <button type="submit" className='loginButton'>Submit</button>
       </div>
     </form>
     </div>

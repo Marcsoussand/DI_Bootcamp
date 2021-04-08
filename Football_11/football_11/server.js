@@ -1,20 +1,21 @@
 // const express = require('express');
 // const cors = require('cors')
-// const app = express();
+// const app2 = express();
 
-// app.use(cors());
+// app2.use(cors());
 
-// app.use('/login', (req, res) => {
+// app2.use('/login', (req, res) => {
 //   res.send({
 //     token: 'test123'
 //   });
 // });
 
-// app.listen(8080, () => console.log('API is running on http://localhost:8080/login'));
+// app2.listen(8081, () => console.log('API is running on http://localhost:8081/login'));
 
 const exp = require('express');
 const bp = require('body-parser');
 const knex = require('knex');
+const cors = require('cors')
 
 const db = knex({
     client:'pg',
@@ -27,6 +28,7 @@ const db = knex({
   })
 const app = exp();
 
+app.use(cors());
 app.use(bp.urlencoded({extended:false}));
 app.use(bp.json());
 
@@ -34,8 +36,9 @@ app.use('/',exp.static(__dirname+'/public'));
 
 app.get('/show', (req, res) => {
   db('players')
+  .orderBy('player_id')
   .select('player_id','player_name','team_id_player')
-  .then(data=> {
+    .then(data=> {
     console.log(data);
     res.send(data)
   })
@@ -57,12 +60,16 @@ app.post('/post',(req, res) => {
 })
 
 function changePlayer ({playerId,playerName,teamIdPlayer}) {
-  // return db.update('')
-  const text = `UPDATE players SET player_name=${playerName} WHERE player_id=${playerId} AND team_id_player=${teamIdPlayer}`;
-  return db.query(text,
-  (err, res) => {
-    console.log(err, res);
-    db.end();
-  })}
+  return db('players')
+  .where({player_id:playerId,team_id_player:teamIdPlayer})
+  .update({player_name:playerName})
+  .then(data=> {
+    console.log(data);
+  })
+  .catch(err => {
+    console.log(err);
+    res.send({message:err.detail})
+  })
+}
 
-app.listen(8080, () => console.log('API is running on http://localhost:8080/login'));
+app.listen(8081, () => console.log('API is running on http://localhost:8081/'));

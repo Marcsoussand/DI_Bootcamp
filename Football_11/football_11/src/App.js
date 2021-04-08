@@ -134,7 +134,6 @@ class App extends React.Component {
   showPlayers = (data) => {
     var YourTempPlayers =[]
     data.map(t=>YourTempPlayers.push(t.player_name))
-    console.log((YourTempPlayers));
     this.setState({playersName:YourTempPlayers,badge:dilogo})
   }
 
@@ -143,10 +142,14 @@ class App extends React.Component {
   }
 
   updateTeam = () =>{
-    let user_id=1;
-    let team_id_player = 1;
-    this.state.playersName.map( t=> {let playerPost={user_id,t,team_id_player};
-      fetch('http://localhost:8080/', {
+    let teamIdPlayer = 1;
+    let playersNameTemp=this.state.playersName;
+    let playerPost = {};
+    let playerName='';
+    for (let playerId=1;playerId<=playersNameTemp.length;playerId++)
+    {playerName = playersNameTemp[playerId-1];
+      playerPost={playerId,playerName,teamIdPlayer};
+      fetch('http://localhost:8081/post', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -161,7 +164,7 @@ class App extends React.Component {
       //   console.log(err);
       // })
 
-  })})};
+  })}};
 
   availablePlayers = async () => {
     switch (this.state.available) {
@@ -484,8 +487,8 @@ class App extends React.Component {
     // <UseToken/>
     if (!token) {
       return <>
-        <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login} />
-        <Login setToken={this.setToken} />
+        <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login}  token={token} />
+        <Login setToken={this.setToken}/>
         <Footer />
       </>
     }
@@ -495,7 +498,7 @@ class App extends React.Component {
         <BrowserRouter>
           <Switch>
             <Route path="/realTeams">
-              <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login} />
+              <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login}  token={token}/>
 
 
               <div id='container'>
@@ -531,13 +534,13 @@ class App extends React.Component {
             </Route>
             <Route path="/yourTeam">
 
-              <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login} />
+              <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login}  token={token}/>
 
 
               <div id='container'>
                 <div id='leftSide'>
                   <SelectDisplay formation={formation} changeDisplay={this.changeDisplay} />
-                  <YourTeam visibilityStatus={visibilityStatus} playersName={playersName} team={team} setPlayerNames={this.setPlayerNames} showPlayers={this.showPlayers} />
+                  <YourTeam visibilityStatus={visibilityStatus} playersName={playersName} team={team} setPlayerNames={this.setPlayerNames} showPlayers={this.showPlayers}/>
                 </div>
                 <div id='field'>
 
@@ -563,7 +566,7 @@ class App extends React.Component {
               <Footer />
             </Route>
             <Route path="/about">
-              <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login} />
+              <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login}  token={token}/>
               <About />
 
               <Footer />
