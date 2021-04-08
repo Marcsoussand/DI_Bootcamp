@@ -10,7 +10,7 @@ const Navbar = (props) => {
 // if(!token) {
 return (
     <nav>
-        <div id='title'> <img src={logo} alt='Logo'></img><div><p style={{color:'gold'}}>Football 11</p><p style={{fontSize:"60%", textAlign:'center'}}>Lineup builder</p></div></div>
+        <div id='title'><NavLink to='/'><img src={logo} alt='Logo'></img><div><p id='titleUp'>Football 11</p><p id='titleDown'>Lineup builder</p></div></NavLink></div>
         <div id='items'>
         <span className='navItems' onClick={realTeams} ><NavLink to ='/realTeams'>Real Teams</NavLink></span>
         <span className='navItems' onClick={yourTeam}><NavLink to='/yourTeam'>Your Team</NavLink> </span>

@@ -15,7 +15,7 @@ const About = () => {
         </p>
         <br/>
         <h4>Your Team : </h4>
-        <p>You may also use this website for your own team, and store your players into our online database.</p>
+        <p>You may also use this website for your own team, update and store your players into our online database.</p>
         <img src={logo} alt='Logo'></img>
         </div>
     )

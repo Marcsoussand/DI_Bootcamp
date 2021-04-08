@@ -6,22 +6,39 @@ nav {
     vertical-align: middle;
     color: white;
     font-size: 130%;
-    height: 50px;
+    height: 45px;
     padding-top: 5px;
 }
 
-#title {
+#title >a {
     display: inline-flex;
 }
 
-nav >div >img {
+nav >div >a >img {
     width: 40px;
     height: 40px;
     vertical-align: middle;
 }
 
-nav >div>div {
-    display: grid;
+nav >div >a >div {
+    display: grid;   
+}
+
+nav >div >a:link {
+    text-decoration: none;
+}
+
+#titleUp {
+    color: gold;
+    text-decoration: none;
+    padding-left: 5px;
+}
+
+#titleDown {
+    color:white;
+    text-decoration: none;
+    font-size: 60%;
+    text-align: center;
 }
 
 #login {

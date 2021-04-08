@@ -14,6 +14,7 @@ import Login from './components/Login';
 import logo from './Images/logo.PNG';
 import dilogo from './Images/dilogo.jpg';
 import Modal from './components/Modal';
+import Home from './components/Home';
 
 // import UseToken from './components/UseToken';
 // import ErrorBoundary from './components/ErrorBoundary';
@@ -80,6 +81,7 @@ class App extends React.Component {
       availableText: "Exclude injured and suspended players",
       modalClasses: "overlay",
       token: false,
+      buttonColor:'#24AB33',
 
 
 
@@ -169,15 +171,14 @@ class App extends React.Component {
   availablePlayers = async () => {
     switch (this.state.available) {
       case false:
-        await this.setState({ available: true, availableText: "Include injured and suspended players" })
-        console.log(this.state.available);
+        await this.setState({ available: true, availableText: "Include injured and suspended players", buttonColor:"red" })
         this.getPlayers();
 
         break;
       case true:
-        await this.setState({ available: false, availableText: "Exclude injured and suspended players" })
-        console.log(this.state.available);
+        await this.setState({ available: false, availableText: "Exclude injured and suspended players",buttonColor:"#24AB33" })
         this.getPlayers();
+
         break;
       default:
         break;
@@ -482,7 +483,7 @@ class App extends React.Component {
 
   render() {
     // console.log('this.state', this.state);
-    const { displayFormation, backgroundColor, playersName, benchName, team, badge, token, visibilityStatus, availableText, modalClasses } = this.state;
+    const { displayFormation, backgroundColor, playersName, benchName, team, badge, token, visibilityStatus, buttonColor,availableText, modalClasses } = this.state;
 
     // <UseToken/>
     if (!token) {
@@ -497,6 +498,11 @@ class App extends React.Component {
       <div className="wrapper">
         <BrowserRouter>
           <Switch>
+            <Route exact path="/" >
+            <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login}  token={token}/>
+            <Home token={token}/>
+            <Footer />
+            </Route>
             <Route path="/realTeams">
               <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login}  token={token}/>
 
@@ -507,7 +513,7 @@ class App extends React.Component {
                   <SelectTeam listTeams={listTeams} setTeam={this.setTeam} disabled={this.state.data.elements ? false : true} />
                   <br />
                   <SelectDisplay formation={formation} changeDisplay={this.changeDisplay} />
-                  <button type="button" id='available' style={{ visibility: visibilityStatus }} onClick={this.availablePlayers}>{availableText}</button>
+                  <button type="button" id='available' style={{ visibility: visibilityStatus, backgroundColor:buttonColor }} onClick={this.availablePlayers}>{availableText}</button>
                   <PlayersOnField visibilityStatus={visibilityStatus} playersName={playersName} team={team} />
                 </div>
                 <div id='field'>
@@ -531,6 +537,7 @@ class App extends React.Component {
                   {/* <button id='saveButton'>Save your team</button> */}
                 </div>
               </div>
+              <Footer />
             </Route>
             <Route path="/yourTeam">
 
