@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 import SelectTeam from './components/SelectTeam';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -10,7 +12,10 @@ import YourTeam from './components/YourTeam';
 import About from './components/About';
 import Login from './components/Login';
 import logo from './Images/logo.PNG';
+import dilogo from './Images/dilogo.jpg';
 import Modal from './components/Modal';
+
+// import UseToken from './components/UseToken';
 // import ErrorBoundary from './components/ErrorBoundary';
 
 
@@ -39,16 +44,15 @@ const listTeams = [
 ];
 
 //Creating all the fornations available
-const formation = ["4-2-3-1","4-3-2-1", "4-3-3", "4-4-2", "5-4-1", "5-3-2", "3-4-3", "3-5-2"];
+const formation = ["4-2-3-1", "4-3-2-1", "4-3-3", "4-4-2", "5-4-1", "5-3-2", "3-4-3", "3-5-2"];
 
 
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.setPlayerNames=this.setPlayerNames.bind(this);
+    this.setPlayerNames = this.setPlayerNames.bind(this);
     this.state = {
-      page: 'real', //Used as a page switch
       backgroundColor: 'red', //Jersey color
       team: '', //Team on screen
       idteam: '',
@@ -61,20 +65,23 @@ class App extends React.Component {
       benchName: [], // Players Names on bench, available for swaps
       display: '4-2-3-1', // Formation selected, here 4-2-3-1 by default
       displayFormation: ['line4-1 player defender',
-      'line4-2 player defender',
-      'line4-3 player defender',
-      'line4-4 player defender',
-      'line2-1 player defmidfielder',
-      'line2-2 player defmidfielder',
-      'line3-1 player offmidfielder',
-      'line3-2 player offmidfielder',
-      'line3-3 player offmidfielder',
-      'line1-1 player forward'], // Using a CSS grid, all players will go to their right place
+        'line4-2 player defender',
+        'line4-3 player defender',
+        'line4-4 player defender',
+        'line2-1 player defmidfielder',
+        'line2-2 player defmidfielder',
+        'line3-1 player offmidfielder',
+        'line3-2 player offmidfielder',
+        'line3-3 player offmidfielder',
+        'line1-1 player forward'], // Using a CSS grid, all players will go to their right place
       disabled: false,
       visibilityStatus: 'hidden',
-      available:false,
-      availableText:"Exclude injured and suspended players",
-      modalClasses:"overlay"
+      available: false,
+      availableText: "Exclude injured and suspended players",
+      modalClasses: "overlay",
+      token: false,
+
+
 
 
 
@@ -89,7 +96,6 @@ class App extends React.Component {
     })
       .then(response => response.json())
       .then(playerData => {
-        console.log(playerData);
         this.setState({ data: playerData })
       })
 
@@ -97,46 +103,79 @@ class App extends React.Component {
 
   }
 
-  realTeams = () => {
-    this.setState({ page: 'real', visibilityStatus: 'hidden' });
+  setToken = async (userToken) => {
+    console.log(userToken);
+    await this.setState({ token: JSON.stringify(userToken) });
+    console.log(this.state.token);
+  }
 
-    console.log(this.state.page);
+  realTeams = () => {
+    this.setState({ visibilityStatus: 'hidden',playersName: ['Goal',
+    'Def1', 'Def2', 'Def3', 'Def4',
+    'Mid1', 'Mid2', 'Mid3',
+    'Mid4', 'Mid5', 'For1'] });
   }
 
   yourTeam = () => {
-    this.setState({ page: 'your', visibilityStatus: 'hidden', playersName: ['P',
-    'P', 'P', 'P', 'P',
-    'P', 'P', 'P',
-    'P', 'P', 'P']})
-    console.log(this.state.page);
+    this.setState({
+      visibilityStatus: 'hidden',benchName: []
+    })
   }
 
-  about = () => {
-    this.setState({ page: 'about' })
+  // about = () => {
+    
+  // }
+
+  // login = () => {
+  //   // this.setState({ page: 'login' })
+
+  // }
+
+  showPlayers = (data) => {
+    var YourTempPlayers =[]
+    data.map(t=>YourTempPlayers.push(t.player_name))
+    console.log((YourTempPlayers));
+    this.setState({playersName:YourTempPlayers,badge:dilogo})
   }
 
-  login = () => {
-    this.setState({page:'login'})
+  setPlayerNames = (arr) => {
+     this.setState({playersName:arr});
   }
 
-  setPlayerNames = (arr) =>{
-  //  this.setState({playersName:arr});
-    console.log(this.state.playersName);
-        }
+  updateTeam = () =>{
+    let user_id=1;
+    let team_id_player = 1;
+    this.state.playersName.map( t=> {let playerPost={user_id,t,team_id_player};
+      fetch('http://localhost:8080/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        
+      },
+      body: JSON.stringify(playerPost)
+      // .then(res => res.json())
+      // .then(data => {
+      //   console.log(data);
+      // })
+      // .catch(err => {
+      //   console.log(err);
+      // })
+
+  })})};
 
   availablePlayers = async () => {
     switch (this.state.available) {
       case false:
-        await this.setState({available:true, availableText:"Include injured and suspended players"})
-    console.log(this.state.available);
-    this.getPlayers();
+        await this.setState({ available: true, availableText: "Include injured and suspended players" })
+        console.log(this.state.available);
+        this.getPlayers();
 
         break;
-        case true:
-          await this.setState({available:false, availableText: "Exclude injured and suspended players"})
-    console.log(this.state.available);
-    this.getPlayers();
-       
+      case true:
+        await this.setState({ available: false, availableText: "Exclude injured and suspended players" })
+        console.log(this.state.available);
+        this.getPlayers();
+        break;
       default:
         break;
     }
@@ -266,8 +305,9 @@ class App extends React.Component {
         break;
     }
 
-    if(this.state.page==='real'){
-    this.getPlayers();}
+    if (this.state.page === 'real') {
+      this.getPlayers();
+    }
 
 
   }
@@ -276,22 +316,23 @@ class App extends React.Component {
     const teamPicked = [...listTeams].find(t => t.teamName === e.target.value);
     console.log('teamPicked', teamPicked);
     try {
-    await this.setState({ team: teamPicked.teamName, backgroundColor: teamPicked.color, idteam: teamPicked.id, badge: teamPicked.logo });}
-    catch(err){console.log("Sorry for the inconvenience")}
+      await this.setState({ team: teamPicked.teamName, backgroundColor: teamPicked.color, idteam: teamPicked.id, badge: teamPicked.logo });
+    }
+    catch (err) { console.log("Sorry for the inconvenience") }
 
 
     this.getPlayers();
   }
 
   closeModal = () => {
-    this.setState({modalClasses:"overlay"})
+    this.setState({ modalClasses: "overlay" })
   }
 
 
   getPlayers = () => {
     // Filter through list of all players to get the players of the team who are not injured
     // const playersTeam = this.state.data.elements.filter(t => t.team === this.state.idteam && t.chance_of_playing_this_round === 100 && t.status === 'a');
-    const playersTeam = (this.state.available)?this.state.data.elements.filter(t => t.team === this.state.idteam && t.status === 'a'):this.state.data.elements.filter(t => t.team === this.state.idteam);
+    const playersTeam = (this.state.available) ? this.state.data.elements.filter(t => t.team === this.state.idteam && t.status === 'a') : this.state.data.elements.filter(t => t.team === this.state.idteam);
     // // // Get only the best goalkeeper
     const goalKeeperList = playersTeam.filter(t => t.element_type === 1);
     goalKeeperList.sort(function (a, b) { return parseFloat(b.now_cost) - parseFloat(a.now_cost) });
@@ -427,7 +468,7 @@ class App extends React.Component {
 
     this.setState({ playersName: playersTemp, benchName: benchnames, visibilityStatus: 'visible' });
 
-    if (forwardList.length < displayUse.substr(-1)) {this.setState({modalClasses:"show overlay"})}
+    if (forwardList.length < displayUse.substr(-1)) { this.setState({ modalClasses: "show overlay" }) }
 
 
 
@@ -437,116 +478,106 @@ class App extends React.Component {
 
 
   render() {
-    console.log('this.state', this.state);
-    const { displayFormation, backgroundColor, playersName, benchName, team, badge, page, visibilityStatus, availableText, modalClasses } = this.state;
+    // console.log('this.state', this.state);
+    const { displayFormation, backgroundColor, playersName, benchName, team, badge, token, visibilityStatus, availableText, modalClasses } = this.state;
 
-
-
-    switch (page) {
-      case 'real':
-        return (
-          <>
-            <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login}/>
-
-
-            <div id='container'>
-              <Modal modalClasses={modalClasses} closeModal={this.closeModal}/>
-              <div id='leftSide'>
-                <SelectTeam listTeams={listTeams} setTeam={this.setTeam} disabled={this.state.data.elements ? false : true} />
-                <br />
-                <SelectDisplay formation={formation} changeDisplay={this.changeDisplay} />
-                <button type="button" id='available' style={{visibility:visibilityStatus}} onClick={this.availablePlayers}>{availableText}</button>
-                <PlayersOnField visibilityStatus={visibilityStatus} playersName={playersName} team={team} />
-              </div>
-              <div id='field'>
-
-                <div id='goal' className='player'><i id='player goalKeeper' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='goalName'>{playersName[0][0]}</p></div>
-                <div className={displayFormation[0]}><i id='player2' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def1Name'>{playersName[1][0]}</p></div>
-                <div className={displayFormation[1]}><i id='player3' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def2Name'>{playersName[2][0]}</p></div>
-                <div className={displayFormation[2]}><i id='player4' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def3Name'>{playersName[3][0]}</p></div>
-                <div className={displayFormation[3]}><i id='player5' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def4Name'>{playersName[4][0]}</p></div>
-                <div className={displayFormation[4]}><i id='player6' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='mid1Name'>{playersName[5][0]}</p></div>
-                <div className={displayFormation[5]}><i id='player7' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='mid2Name'>{playersName[6][0]}</p></div>
-                <div className={displayFormation[6]}><i id='player8' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='mid3Name'>{playersName[7][0]}</p></div>
-                <div className={displayFormation[7]}><i id='player9' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='for1Name'>{playersName[8][0]}</p></div>
-                <div className={displayFormation[8]}><i id='player10' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='for2Name'>{playersName[9][0]}</p></div>
-                <div className={displayFormation[9]}><i id='player11' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='for3Name'>{playersName[10][0]}</p></div>
-                <img id='badgeDisplay' src={badge} alt='badge'></img>
-              </div>
-              <div id='rightSide'>
-
-                <PlayersOnBench visibilityStatus={visibilityStatus} id='playersOnBench1' benchName={benchName} />
-                <button id='saveButton'>Save your team</button>
-              </div>
-            </div>
-            <Footer />
-          </>
-
-        )
-
-      case 'your':
-        return (
-          <>
-             <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login}/>
-
-
-            <div id='container'>
-              <div id='leftSide'>
-                <SelectDisplay formation={formation} changeDisplay={this.changeDisplay} />
-                <YourTeam visibilityStatus={visibilityStatus} playersName={playersName} team={team} setPlayerNames={this.setPlayerNames}/>
-              </div>
-              <div id='field'>
-
-                <div id='goal' className='player'><i id='player goalKeeper' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='goalName'>{playersName[0][0]}</p></div>
-                <div className={displayFormation[0]}><i id='player2' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def1Name'>{playersName[1][0]}</p></div>
-                <div className={displayFormation[1]}><i id='player3' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def2Name'>{playersName[2][0]}</p></div>
-                <div className={displayFormation[2]}><i id='player4' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def3Name'>{playersName[3][0]}</p></div>
-                <div className={displayFormation[3]}><i id='player5' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def4Name'>{playersName[4][0]}</p></div>
-                <div className={displayFormation[4]}><i id='player6' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='mid1Name'>{playersName[5][0]}</p></div>
-                <div className={displayFormation[5]}><i id='player7' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='mid2Name'>{playersName[6][0]}</p></div>
-                <div className={displayFormation[6]}><i id='player8' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='mid3Name'>{playersName[7][0]}</p></div>
-                <div className={displayFormation[7]}><i id='player9' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='for1Name'>{playersName[8][0]}</p></div>
-                <div className={displayFormation[8]}><i id='player10' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='for2Name'>{playersName[9][0]}</p></div>
-                <div className={displayFormation[9]}><i id='player11' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='for3Name'>{playersName[10][0]}</p></div>
-                <img id='badgeDisplay' src={badge} alt='badge'></img>
-              </div>
-              <div id='rightSide'>
-
-                <PlayersOnBench visibilityStatus={visibilityStatus} id='playersOnBench1' benchName={benchName} />
-                <button id='saveButton'>Save your team</button>
-              </div>
-            </div>
-            <Footer />
-          </>
-
-        )
-
-      case 'about':
-        return (
-          <>
-             <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login}/>
-            <About />
-
-            <Footer />
-
-          </>
-        )
-case 'login':
-  return (
-    <>
-     <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login}/>
-    <Login />
-    <Footer />
-    </>
-  )
-
-      default:
-        break;
+    // <UseToken/>
+    if (!token) {
+      return <>
+        <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login} />
+        <Login setToken={this.setToken} />
+        <Footer />
+      </>
     }
 
+    return (
+      <div className="wrapper">
+        <BrowserRouter>
+          <Switch>
+            <Route path="/realTeams">
+              <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login} />
 
+
+              <div id='container'>
+                <Modal modalClasses={modalClasses} closeModal={this.closeModal} />
+                <div id='leftSide'>
+                  <SelectTeam listTeams={listTeams} setTeam={this.setTeam} disabled={this.state.data.elements ? false : true} />
+                  <br />
+                  <SelectDisplay formation={formation} changeDisplay={this.changeDisplay} />
+                  <button type="button" id='available' style={{ visibility: visibilityStatus }} onClick={this.availablePlayers}>{availableText}</button>
+                  <PlayersOnField visibilityStatus={visibilityStatus} playersName={playersName} team={team} />
+                </div>
+                <div id='field'>
+
+                  <div id='goal' className='player'><i id='player goalKeeper' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='goalName'>{playersName[0][0]}</p></div>
+                  <div className={displayFormation[0]}><i id='player2' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def1Name'>{playersName[1][0]}</p></div>
+                  <div className={displayFormation[1]}><i id='player3' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def2Name'>{playersName[2][0]}</p></div>
+                  <div className={displayFormation[2]}><i id='player4' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def3Name'>{playersName[3][0]}</p></div>
+                  <div className={displayFormation[3]}><i id='player5' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def4Name'>{playersName[4][0]}</p></div>
+                  <div className={displayFormation[4]}><i id='player6' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='mid1Name'>{playersName[5][0]}</p></div>
+                  <div className={displayFormation[5]}><i id='player7' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='mid2Name'>{playersName[6][0]}</p></div>
+                  <div className={displayFormation[6]}><i id='player8' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='mid3Name'>{playersName[7][0]}</p></div>
+                  <div className={displayFormation[7]}><i id='player9' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='for1Name'>{playersName[8][0]}</p></div>
+                  <div className={displayFormation[8]}><i id='player10' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='for2Name'>{playersName[9][0]}</p></div>
+                  <div className={displayFormation[9]}><i id='player11' style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='for3Name'>{playersName[10][0]}</p></div>
+                  <img id='badgeDisplay' src={badge} alt='badge'></img>
+                </div>
+                <div id='rightSide'>
+
+                  <PlayersOnBench visibilityStatus={visibilityStatus} id='playersOnBench1' benchName={benchName} />
+                  {/* <button id='saveButton'>Save your team</button> */}
+                </div>
+              </div>
+            </Route>
+            <Route path="/yourTeam">
+
+              <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login} />
+
+
+              <div id='container'>
+                <div id='leftSide'>
+                  <SelectDisplay formation={formation} changeDisplay={this.changeDisplay} />
+                  <YourTeam visibilityStatus={visibilityStatus} playersName={playersName} team={team} setPlayerNames={this.setPlayerNames} showPlayers={this.showPlayers} />
+                </div>
+                <div id='field'>
+
+                  <div id='goal' className='player'><i style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='goalName'>{playersName[0]}</p></div>
+                  <div className={displayFormation[0]}><i style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def1Name'>{playersName[1]}</p></div>
+                  <div className={displayFormation[1]}><i style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def2Name'>{playersName[2]}</p></div>
+                  <div className={displayFormation[2]}><i style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def3Name'>{playersName[3]}</p></div>
+                  <div className={displayFormation[3]}><i style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='def4Name'>{playersName[4]}</p></div>
+                  <div className={displayFormation[4]}><i style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='mid1Name'>{playersName[5]}</p></div>
+                  <div className={displayFormation[5]}><i style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='mid2Name'>{playersName[6]}</p></div>
+                  <div className={displayFormation[6]}><i style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='mid3Name'>{playersName[7]}</p></div>
+                  <div className={displayFormation[7]}><i style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='for1Name'>{playersName[8]}</p></div>
+                  <div className={displayFormation[8]}><i style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='for2Name'>{playersName[9]}</p></div>
+                  <div className={displayFormation[9]}><i style={{ color: backgroundColor }} className="fas fa-tshirt fa-3x"></i><p className='playerDisplay' id='for3Name'>{playersName[10]}</p></div>
+                  <img id='badgeDisplay' src={badge} alt='badge'></img>
+                </div>
+                <div id='rightSide'>
+
+                  <PlayersOnBench visibilityStatus={visibilityStatus} id='playersOnBench1' benchName={benchName} />
+                  <button id='saveButton' onClick={this.updateTeam}>Save your team</button>
+                </div>
+              </div>
+              <Footer />
+            </Route>
+            <Route path="/about">
+              <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login} />
+              <About />
+
+              <Footer />
+            </Route>
+            <Route path="/login">
+              <Navbar realTeams={this.realTeams} yourTeam={this.yourTeam} about={this.about} login={this.login} />
+              <Login setToken={this.setToken} />
+
+              <Footer />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </div>)
   }
-
 }
 
 export default App;

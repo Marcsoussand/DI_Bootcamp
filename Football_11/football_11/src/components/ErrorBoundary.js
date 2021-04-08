@@ -1,5 +1,7 @@
 import React from 'react';
 
+//ErrorBoundary to handle errors
+
 class ErrorBoundary extends React.Component {
     constructor(props) {
       super(props);
@@ -19,7 +21,7 @@ class ErrorBoundary extends React.Component {
     render() {
       if (this.state.hasError) {
         // Vous pouvez afficher n'importe quelle UI de repli.
-        return <h1>Something went wrong.</h1>;
+        return <h1>Something went wrong, please refresh.</h1>;
       }
   
       return this.props.children;

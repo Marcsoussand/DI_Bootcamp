@@ -1,6 +1,8 @@
 import '../CSS/About.css';
 import logo from '../Images/logo.PNG';
 
+//About Page to explain the meaning of this website
+
 const About = () => {
     return (
         <div id="about">

@@ -3,22 +3,40 @@ nav {
     display: inline-flex;
     width: 100%;
     justify-content: space-around;
+    vertical-align: middle;
     color: white;
-    font-size: 150%;
+    font-size: 130%;
+    height: 50px;
+    padding-top: 5px;
 }
 
-nav >span >img {
-    width: 30px;
+#title {
+    display: inline-flex;
+}
+
+nav >div >img {
+    width: 40px;
+    height: 40px;
     vertical-align: middle;
 }
 
+nav >div>div {
+    display: grid;
+}
+
 #login {
-    color: white;
     background-color: cornflowerblue;
     width: 80px;
-    border-radius: 10px;
+    border-radius: 2px;
     font-size: 80%;
+    
 }
+
+#login >i {
+    padding-left: 5px;
+    
+}
+
 
 #login:hover {
     color:gold;
@@ -26,7 +44,12 @@ nav >span >img {
 }
 
 .navItems {
-    padding: 0 5px;
+    padding: 0 10px;
+    align-self: center;
+}
+
+#items {
+    display: flex;
 }
 
 .navItems:hover {
@@ -36,3 +59,8 @@ nav >span >img {
     cursor: pointer;
 }
 
+.navItems >a {
+    color:white;
+    text-decoration: none;
+
+}

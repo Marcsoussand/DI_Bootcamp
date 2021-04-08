@@ -1,18 +1,20 @@
 import '../CSS/Login.css';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
+//Login page, used to deal with a token username/password in order to connect to the site.
 
-async function loginUser(credentials) {
-    return fetch('http://localhost:8080/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(credentials)
-    })
-      .then(data => data.json())
-   }
+// async function loginUser(credentials) {
+//     return fetch('http://localhost:8080/login', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify(credentials)
+//     })
+//       .then(data => data.json())
+//    }
    
      
 
@@ -22,10 +24,12 @@ export default function Login({ setToken }) {
    
      const handleSubmit = async e => {
        e.preventDefault();
-       const token = await loginUser({
+    //    const token = await loginUser({
+        const token =({
          username,
          password
        });
+       localStorage.setItem('token', JSON.stringify(token));
        setToken(token);
      }
     return (
@@ -42,7 +46,7 @@ export default function Login({ setToken }) {
         <input type="password" className='inputLogin' onChange={e => setPassword(e.target.value)}/>
       </label>
       <div>
-        <button type="submit" className='loginButton'>Submit</button>
+      <NavLink to='/realTeams'><button type="submit" className='loginButton'>Submit</button></NavLink>
       </div>
     </form>
     </div>

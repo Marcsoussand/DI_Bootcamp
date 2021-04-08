@@ -4,7 +4,8 @@ var playersTemp2 = [];
 class YourTeam extends React.Component {
     constructor(props) {
         super(props);
-        this.setPlayer = this.setPlayer.bind(this);}
+        this.setPlayer = this.setPlayer.bind(this)};
+    // this.showPlayers=this.showPlayers.bind(this)};
         // this.nameInput = this.nameInput.bind(this);
 
         // let {playersName} = props;
@@ -15,7 +16,17 @@ class YourTeam extends React.Component {
         //     return ("input" + i)
         // }
 
-        setPlayer(){
+        async componentDidMount(){
+            await fetch('http://localhost:8080/show')
+            .then(res => res.json())
+            .then(data => {
+                this.props.showPlayers(data)
+            })
+        }
+
+
+
+        setPlayer(playersTemp2){
             this.props.setPlayerNames(playersTemp2);
         }
 
@@ -51,7 +62,7 @@ render () {
                         // };
 
                         playersTemp2.push(item);
-                        return <li key={i} className='playerListDesign'><div>Player {i + 1}</div><input type="text" className='inputPlayers'  onChange={event => { playersTemp2[i] = event.target.value; this.setPlayer(); console.log(playersTemp2);}} /> </li>
+                        return <li key={i} className='playerListDesign'><div>Player {i + 1}</div><input type="text" className='inputPlayers'  onChange={event => { playersTemp2[i] = event.target.value; this.setPlayer(playersTemp2); console.log(playersTemp2);}} /> </li>
                     })}
                 </ul>
             </>

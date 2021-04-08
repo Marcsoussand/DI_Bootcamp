@@ -4,7 +4,6 @@ const PlayersOnField = (props) => {
 
     let { playersName, visibilityStatus } = props;
     var position = '';
-    console.log({visibilityStatus});
     return (
         <>
 

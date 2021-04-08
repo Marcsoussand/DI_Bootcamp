@@ -1,17 +1,20 @@
 import React from 'react';
 import '../CSS/Navbar.css';
 import logo from '../Images/logo.PNG';
+import { NavLink } from 'react-router-dom';
 // import SelectTeam from './SelectTeam';
 
 const Navbar = (props) => {
  const {realTeams, yourTeam,about,login} =props;
 return (
     <nav>
-        <span style={{color:'gold'}}> <img src={logo} alt='Logo'></img>  Football 11 - Lineup builder </span>
-        <span className='navItems' onClick={realTeams}>Real Teams</span>
-        <span className='navItems' onClick={yourTeam}> Your Team</span>
-        <span className='navItems' onClick={about}>About</span>
-        <button id='login' onClick={login}> Login</button>
+        <div id='title'> <img src={logo} alt='Logo'></img><div><p style={{color:'gold'}}>Football 11</p><p style={{fontSize:"60%", textAlign:'center'}}>Lineup builder</p></div></div>
+        <div id='items'>
+        <span className='navItems' onClick={realTeams} ><NavLink to ='/realTeams'>Real Teams</NavLink></span>
+        <span className='navItems' onClick={yourTeam}><NavLink to='/yourTeam'>Your Team</NavLink> </span>
+        <span className='navItems' onClick={about}><NavLink to='/about'>About</NavLink></span>
+        <span className='navItems'id='login' onClick={login}> <NavLink to='/login'>Login</NavLink><i className="fas fa-sign-in-alt"></i></span>
+        </div>
     </nav>
 )
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import '../CSS/Footer.css';
 
+//Footer component with GitHub, LinkedIn, Facebook and mail contact
+
 const Footer = () => {
 
 return (
